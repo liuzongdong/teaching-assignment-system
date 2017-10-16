@@ -11,14 +11,25 @@ Download and unpack Apache Tomcat 7.0 from
 
 Put into separate directory on your local machine.
 
-### Create an new project
+### Set up Tomcat environments
 
-This project was created in Eclipse Oxygen by choosing new "Dynamic Web Project"
-from the file menu. 
+For Windows Users:
+* Window - Preferences - Server - Runtime Environments
 
-Near the "Target Runtime" field, choose "New Runtime", then Apache 7.0, and then provide
-the path to the directory where you unpacked Tomcat above.
+For Mac Users:
+* Eclipse - Preferences/偏好设置 - Server - Runtime Environments
+
+
+* Click Add button.
+* Select Apache - Apache Tomcat v7.0
+* Check "Create a new local server"
+* Name: You can set anything you want, by default, it is Apache Tomcat v7.0.
+* Tomcat installation directory: Your Tomcat directory, which you just downloaded a little while before.
+* Jre: Java SE 8 (1.8) or Java 9 (lastest version)
+* Click Finish and apply.
 
 ### Import project
 
 Click the Fork button on the upper right-hand side of the this page and make a local clone.
+
+For more Git operation Please check [here](https://guides.github.com/)
