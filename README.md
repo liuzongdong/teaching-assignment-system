@@ -18,7 +18,7 @@ For Windows Users:
 * Window - Preferences - Server - Runtime Environments
 
 For Mac Users:
-* Eclipse - Preferences/偏好设置 - Server - Runtime Environments
+* Eclipse - Preferences - Server - Runtime Environments
 ---
 
 
@@ -33,5 +33,12 @@ For Mac Users:
 ### Import project
 
 Click the Fork button on the upper right-hand side of the this page and make a local clone.
-
 For more Git operation Please check [here](https://guides.github.com/)
+> 我不写英文了，回头你们谁给翻译一下，到时候Gigi看到中文不太好
+在file标签下选择Import，然后选择General - Existing Projects into Workspace
+然后选择你Clone后的项目目录
+接下来的事情就交给Eclipse去处理吧
+
+## API Documentation
+
+Please check [here](http://111.121.193.214)
