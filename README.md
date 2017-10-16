@@ -12,12 +12,14 @@ Download and unpack Apache Tomcat 7.0 from
 Put into separate directory on your local machine.
 
 ### Set up Tomcat environments
+---
 
 For Windows Users:
 * Window - Preferences - Server - Runtime Environments
 
 For Mac Users:
 * Eclipse - Preferences/偏好设置 - Server - Runtime Environments
+---
 
 
 * Click Add button.
