@@ -14,6 +14,11 @@ import course.assign.Course;
  * Servlet implementation class EditCourse
  */
 @WebServlet("/EditCourse")
+/**
+ * Add MultipartConfig announcement to fit HTML5 form data
+ * @author liuzongdong
+ *
+ */
 @MultipartConfig
 public class EditCourse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
