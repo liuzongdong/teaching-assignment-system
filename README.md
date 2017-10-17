@@ -77,7 +77,7 @@ Firstly, type: `git status` to check if your work tree clean or not.
 
 You will type this command a lot of times.
 
-* Before Coding, be sure you create a new branch
+Before Coding, be sure you create a new branch
 
 `git branch adam-dev` or `git branch tifa-dev` or `git branch hugh-dev`
 
