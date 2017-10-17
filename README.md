@@ -30,6 +30,25 @@ For Mac Users:
 * Jre: Java SE 8 (1.8) or Java 9 (lastest version)
 * Click Finish and apply.
 
+### Set up Git
+
+Please check [here](https://git-scm.com/downloads) to download the latest version of Git.
+
+For Mac users: macOS已经内置Git无需安装(谁来翻译一下嘛，反正你们都有权限修改的)
+
+#### Initializing a Repository in an Existing Directory //you don't need to do this, but you need to know how it works
+If you have a project directory that is currently not under version control and you want to start controlling it with Git, you first need to go to that project’s directory,
+
+and type:
+`git init`
+
+#### Cloning an Existing Repository // This is what you need to do.
+If you want to get a copy of an existing Git repository – for example, a project you’d like to contribute to – the command you need is `git clone`
+
+You clone a repository with git clone <url>. For example:
+`git clone https://github.com/liuzongdong/teaching-assignment-system.git`
+
+
 ### Import project
 
 Click the Fork button on the upper right-hand side of the this page and make a local clone.
