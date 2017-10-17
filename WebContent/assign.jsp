@@ -9,7 +9,7 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*"%>
 <%!String driverName = "com.mysql.jdbc.Driver";%>
 <%!String url = "jdbc:mysql://localhost:3306/tas";%>
 <%!String user = "root";%>
@@ -40,8 +40,11 @@ pageEncoding="ISO-8859-1"%>
 				</button>
 				<a class="navbar-brand" href="#">Teaching Assignment System</a>
 				<ul class="user-menu">
-					<li style="color:white;">
-						Admin <a href="#"><span class="glyphicon glyphicon-log-out"></span> </a>
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+						</ul>
 					</li>
 
 				</ul>
