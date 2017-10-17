@@ -23,11 +23,17 @@ For Mac Users:
 
 
 * Click Add button.
+
 * Select Apache - Apache Tomcat v8.5
+
 * Check "Create a new local server"
+
 * Name: You can set anything you want, by default, it is Apache Tomcat v8.5.
+
 * Tomcat installation directory: Your Tomcat directory, which you just downloaded a little while before.
+
 * Jre: Java SE 8 (1.8) or Java 9 (lastest version)
+
 * Click Finish and apply.
 
 ### Set up Git
