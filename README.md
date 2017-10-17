@@ -54,12 +54,16 @@ Clone a repository with git clone <url>. For example:
 `git clone https://github.com/liuzongdong/teaching-assignment-system.git`
 
 After execute this command, the latest version of TAS is in your computer now.
-### Import project
 
-Click the Fork button on the upper right-hand side of the this page and make a local clone.
 For more Git operation Please check [here](https://guides.github.com/)
 
-Click File and import
+### Import project
+
+* In the Eclipse, Click File - Import - Genernal - Projects form Folder or Archive, and click next.
+
+* Click Directory... Button, and choose the project you just cloned from Github.
+
+* Click Finish, happy?
 
 ## API Documentation
 
