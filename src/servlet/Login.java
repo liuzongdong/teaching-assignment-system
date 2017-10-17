@@ -11,6 +11,11 @@ import javax.servlet.http.HttpSession;
 import course.assign.LoginBean;
 
 @WebServlet("/Login")
+/**
+ * This is just a test comment.
+ * @author Hugh
+ *
+ */
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
