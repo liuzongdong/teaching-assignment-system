@@ -40,7 +40,7 @@ For Mac Users:
 
 Please check [here](https://git-scm.com/downloads) to download the latest version of Git.
 
-For Mac users: macOS已经内置Git无需安装(谁来翻译一下嘛，反正你们都有权限修改的)
+For Mac users: macOS doesn't need to donwload or install this software.
 
 ### Initializing a Repository in an Existing Directory (You don't need to do this).
 If you have a project directory that is currently not under version control and you want to start controlling it with Git.
