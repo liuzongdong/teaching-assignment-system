@@ -77,7 +77,7 @@ Firstly, type: `git status` to check if your work tree clean or not.
 
 You will type this command a lot of times.
 
-* Before Coding, be sure you create a new branch
+Before Coding, be sure you create a new branch
 
 `git branch adam-dev` or `git branch tifa-dev` or `git branch hugh-dev`
 
@@ -105,11 +105,7 @@ Make sure do it everytime before coding, because the master branch maybe changed
 
 Just type:
 
-`git remote add upstream https://github.com/liuzongdong/teaching-assignment-system.git`
-
-`git fetch upstream`
-
-`git pull upstream master`
+`git pull`
 
 It will update your MASTER branch.
 
