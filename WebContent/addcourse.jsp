@@ -48,9 +48,9 @@
 			<li class="active"><a href="addcourse.jsp"><span class="glyphicon glyphicon-th"></span> Add Course</a></li>
             <li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
-			<li><a href="tables.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
-			<li><a href="forms.jsp"><span class="glyphicon glyphicon-pencil"></span> View Teacher</a></li>
-			<li><a href="panels.jsp"><span class="glyphicon glyphicon-info-sign"></span> Add Teacher</a></li>
+			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
+
+
 			<li role="presentation" class="divider"></li>
 
 		</ul>
@@ -164,7 +164,7 @@
 
 
 		</div><!--/.row-->
-		
+
 		  <div class="modal fade" id="EditCourse" role="dialog">
     		<div class="modal-dialog modal-md">
     		<form id="editdata" method="post">
@@ -174,9 +174,9 @@
           			<h4 class="modal-title">Edit Course</h4>
         			</div>
         		<div class="modal-body">
-        		
-        		
-        			
+
+
+
 					<input id="edit_id" required  class="form-control hidden" name="course_id" placeholder="Please input Subject">
         			<div class="form-group">
 						<label>Course Name:</label>
@@ -195,7 +195,7 @@
 							<label>Course Students:</label>
 							<input id="edit_student" required class="form-control" name="course_student" placeholder="Please input Student">
 						</div>
-        		
+
         			</div>
         		<div class="modal-footer">
         		<button type="submit" class="btn btn-primary"> Update </button>
@@ -203,8 +203,8 @@
         		</div>
       		</div>
       		</form>
- 
-      			
+
+
     		</div>
   		</div>
 
@@ -224,7 +224,7 @@
 	<script src="js/jspdf.plugin.autotable.js"></script>
 	<script src="js/xlsx.core.min.js"></script>
 	<script>
-		
+
 	</script>
     <script>
 	$('#table').bootstrapTable({
@@ -355,23 +355,23 @@ return false;
 						case 'fail' :
 							swal("Edit Failed!", "Please check your internet connection!", "error");
 								break;
-		
+
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
 					$('#EditCourse').modal('hide');
-		
+
 		},
 		error: function (xhr, ajaxOptions, thrownError)
 		{
 		swal("Add Failed!", "Please check your internet connection!", "error");
 		$('#EditCourse').modal('hide');
-		
+
 		},
 		cache: false,
 		contentType: false,
 		processData: false
 		});
-		
+
 		return false;
 		});
 

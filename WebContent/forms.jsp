@@ -14,13 +14,8 @@
 <title>Lumino - Forms</title>
 
 <link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/datepicker3.css" rel="stylesheet">
+<link href="css/bootstrap-table.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet">
-
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<script src="js/respond.min.js"></script>
-<![endif]-->
 
 </head>
 
@@ -53,9 +48,9 @@
 			<li><a href="addcourse.jsp"><span class="glyphicon glyphicon-th"></span> Add Course</a></li>
             <li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
-			<li><a href="tables.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
+			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
 			<li class="active"><a href="forms.jsp"><span class="glyphicon glyphicon-pencil"></span> View Teacher</a></li>
-			<li><a href="panels.jsp"><span class="glyphicon glyphicon-info-sign"></span> Add Teacher</a></li>
+
 			<li role="presentation" class="divider"></li>
 
 		</ul>
@@ -78,57 +73,62 @@
 
 
 		<div class="row">
-            <div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">Add Teacher
-						<div style="float:right">
-							<label for="submitForm" class="btn btn-primary"> Submit </label>
-							<label for="resetForm" class="btn btn-default"> Reset </label>
-						</div>
-				</div>
-					<div class="panel-body">
-						<form id="data"role="form" action="addteacher" method="post">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+                	<div class="panel-heading">Add Teacher
+                			<div style="float:right">
+                				<label for="submitForm" class="btn btn-primary"> Submit </label>
+                				<label for="resetForm" class="btn btn-default"> Reset </label>
+                			</div>
+                	</div>
+                			<div class="panel-body">
+                				<form id="data"role="form" action="addteacher" method="post">
 
-							<div class="form-group">
-								<label>Teacher Name:</label>
-								<input required class="form-control" name="teacher_name" placeholder="Please input Name">
-							</div>
+                					<div class="form-group">
+                						<label>Teacher Name:</label>
+                						<input required class="form-control" name="teacher_name" placeholder="Please input Name">
+                					</div>
 
-							<div class="form-group" style="text-align:center">
-                    			<button id="submitForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
-                    			<button id="resetForm" type="reset" class="btn btn-default hidden">Reset Button</button>
-                  			</div>
-						</form>
-					</div>
-				</div>
+                					<div class="form-group" style="text-align:center">
+                                    	<button id="submitForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
+                                    	<button id="resetForm" type="reset" class="btn btn-default hidden">Reset Button</button>
+                                  	</div>
+                                  	</form>
+	                                  	<div class="panel panel-default">
+											<div class="panel-heading">View Course</div>
+											<div class="panel-body">
+												<table id="table" data-show-export="true" data-toggle="table" data-url="TestJson"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true"  data-sort-order="desc">
+							    					<thead>
+							    						<tr>
+															<th data-visible="false"data-field="course_id" data-halign="center" data-align="center" data-sortable="true">Course ID</th>
+													        <th data-field="course_name" data-halign="center" data-align="center" data-sortable="true">Course Name</th>
+													        <th data-field="course_category"  data-halign="center" data-align="center" data-sortable="true">Course Category</th>
+													        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Course Instructor</th>
+													        <th data-field="course_student" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
+													        <th data-field="ta_name" data-halign="center" data-align="center" data-sortable="true">Course TA</th>
+													    </tr>
+							    					</thead>
+												</table>
+											</div>
+										</div>
 
-			</div><!--/.col-->
+                			</div>
+                		</div>
+		</div>
 		</div><!-- /.row -->
 
 	</div><!--/.main-->
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script>
-		!function ($) {
-			$(document).on("click","ul.nav li.parent > a > span.icon", function(){
-				$(this).find('em:first').toggleClass("glyphicon-minus");
-			});
-			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		}(window.jQuery);
-
-		$(window).on('resize', function () {
-		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		})
-		$(window).on('resize', function () {
-		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		})
-	</script>
+	<script src="js/bootstrap-table.js"></script>
+	<script src="js/bootstrap-table-contextmenu.js"></script>
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/tableExport.js"></script>
+	<script src="js/FileSaver.min.js"></script>
+	<script src="js/jspdf.min.js"></script>
+	<script src="js/jspdf.plugin.autotable.js"></script>
+	<script src="js/xlsx.core.min.js"></script>
 </body>
 
 </html>

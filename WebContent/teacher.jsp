@@ -49,8 +49,7 @@
 			<li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
 			<li class="active"><a href="tables.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
-			<li><a href="forms.jsp"><span class="glyphicon glyphicon-pencil"></span> View Teacher</a></li>
-			<li><a href="panels.jsp"><span class="glyphicon glyphicon-info-sign"></span> Add Teacher</a></li>
+
 			<li role="presentation" class="divider"></li>
 
 		</ul>
@@ -98,6 +97,13 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/bootstrap-table.js"></script>
+	<script src="js/bootstrap-table-contextmenu.js"></script>
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/tableExport.js"></script>
+	<script src="js/FileSaver.min.js"></script>
+	<script src="js/jspdf.min.js"></script>
+	<script src="js/jspdf.plugin.autotable.js"></script>
+	<script src="js/xlsx.core.min.js"></script>
 </body>
 
 </html>

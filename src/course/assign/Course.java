@@ -42,7 +42,7 @@ public class Course
 
 	/**
 	 * Get Course name.
-	 * @
+	 * 
 	 *
 	 * @return Course name	Data type: String
 	 */
