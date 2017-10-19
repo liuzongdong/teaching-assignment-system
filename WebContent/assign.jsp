@@ -59,9 +59,9 @@ pageEncoding="ISO-8859-1"%>
 			<li><a href="addcourse.jsp"><span class="glyphicon glyphicon-th"></span> Add Course</a></li>
             <li class="active"><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
-			<li><a href="tables.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
-			<li><a href="forms.jsp"><span class="glyphicon glyphicon-pencil"></span> View Teacher</a></li>
-			<li><a href="panels.jsp"><span class="glyphicon glyphicon-info-sign"></span> Add Teacher</a></li>
+			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
+
+
 
 			<li role="presentation" class="divider"></li>
 
@@ -146,7 +146,7 @@ pageEncoding="ISO-8859-1"%>
 							<label>Please Choose Course:</label>
 							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
 							<%
-								
+
 								try
 								{
 									Class.forName(driverName);

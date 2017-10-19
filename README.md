@@ -105,11 +105,7 @@ Make sure do it everytime before coding, because the master branch maybe changed
 
 Just type:
 
-`git remote add upstream https://github.com/liuzongdong/teaching-assignment-system.git`
-
-`git fetch upstream`
-
-`git pull upstream master`
+`git pull`
 
 It will update your MASTER branch.
 
