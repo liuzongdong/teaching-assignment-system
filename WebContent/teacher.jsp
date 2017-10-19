@@ -32,10 +32,12 @@
 				</button>
 				<a class="navbar-brand" href="#">Teaching Assignment System</a>
 				<ul class="user-menu">
-					<li style="color:white;">
-						Admin <a href="#"><span class="glyphicon glyphicon-log-out"></span> </a>
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+						</ul>
 					</li>
-
 				</ul>
 			</div>
 
@@ -66,7 +68,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Tables</h1>
+				<h3 class="page-header">Teachers</h3>
 			</div>
 		</div><!--/.row-->
 
@@ -74,15 +76,19 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Advanced Table</div>
+					<div class="panel-heading">Teacher
+					<div style="float:right">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#newTeacher">Add Teacher</button>
+						</div>
+					</div>
 					<div class="panel-body">
-						<table data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
+						<table data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
 						    <thead>
 						    <tr>
 
-						        <th data-field="id" data-halign="center" data-align="center" data-sortable="true">Item ID</th>
-						        <th data-field="name"  data-halign="center" data-align="center" data-sortable="true">Item Name</th>
-						        <th data-field="price" data-halign="center" data-align="center" data-sortable="true">Item Price</th>
+						        <th data-field="teacher_id" data-halign="center" data-align="center" data-sortable="true">Teacher ID</th>
+						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Teacher Name</th>
+						        <th data-field="teacher_workload" data-halign="center" data-align="center" data-sortable="true">Teacher WorkLoad</th>
 						    </tr>
 						    </thead>
 						</table>
@@ -90,6 +96,33 @@
 				</div>
 			</div>
 		</div><!--/.row-->
+		
+		<div class="modal fade" id="newTeacher" role="dialog">
+    		<div class="modal-dialog modal-md">
+    		<form id="editdata" method="post">
+    		<div class="modal-content">
+        			<div class="modal-header">
+          				<button type="button" class="close" data-dismiss="modal">&times;</button>
+          			<h4 class="modal-title">Add Teacher</h4>
+        			</div>
+        		<div class="modal-body">
+
+        			<div class="form-group">
+						<label>Teacher Name:</label>
+						<input id="new_teacher_name" required class="form-control" name="course_name" placeholder="Please input Teacher Name">
+					</div>
+
+        			</div>
+        		<div class="modal-footer">
+        		<button type="submit" class="btn btn-primary"> Add </button>
+          		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        		</div>
+      		</div>
+      		</form>
+
+
+    		</div>
+  		</div>
 
 
 	</div><!--/.main-->
