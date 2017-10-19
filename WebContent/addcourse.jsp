@@ -241,8 +241,8 @@
 	    {
 	        if($el.data("item") == "edit")
 	        {
+	        	$('#edit_category').val(row.course_category).change();
 	        	$('#edit_id').val(row.course_id);
-	        	$('#edit_category').val(row.course_category);
 	        	$('#edit_name').val(row.course_name);
 	        	$('#edit_student').val(row.course_student);
 	        	$('#EditCourse').modal('show');
