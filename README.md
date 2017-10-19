@@ -117,6 +117,11 @@ If I merge your branch into master, now you can just delete your branch, because
 
 Remember, DO NOT PUSH CODE INTO MASTER, which means, `git push orign xxxx-dev` is the only thing you need.
 
+
+## SQL
+
+Please check release to download the latest version of SQL file.
+
 ## API Documentation
 
 Please check [here](http://111.121.193.214)
