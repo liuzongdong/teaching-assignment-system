@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.json.simple.JSONArray;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import database.connect.SQLConnect;
 
 public class Teacher 
@@ -135,6 +140,36 @@ public class Teacher
 			SQLConnect.closeDB();
 		}
 		return status;
+	}
+	
+	public JsonArray ViewTeacher()
+	{
+		JsonArray array = new JsonArray();
+		try 
+		{
+			String sql = "select * from teacher";
+			PreparedStatement ps = null;
+	        Connection conn = SQLConnect.connetDB();
+	        ps = conn.prepareStatement(sql);
+	        ResultSet rs = ps.executeQuery();
+	        while(rs.next())
+	        {
+	        	JsonObject object = new JsonObject();
+	        	object.addProperty("teacher_id", rs.getString("teacher_id"));
+	        	object.addProperty("teacher_name", rs.getString("teacher_name"));
+	        	object.addProperty("teacher_workload", rs.getString("teacher_workload"));
+	        	array.add(object);
+	        }
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return array;
 	}
 	
 }

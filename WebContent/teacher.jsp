@@ -14,7 +14,6 @@
 <title>Lumino - Tables</title>
 
 <link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/datepicker3.css" rel="stylesheet">
 <link href="css/bootstrap-table.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet">
 
@@ -50,7 +49,7 @@
 			<li><a href="addcourse.jsp"><span class="glyphicon glyphicon-th"></span> Add Course</a></li>
 			<li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
-			<li class="active"><a href="tables.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
+			<li class="active"><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
 
 			<li role="presentation" class="divider"></li>
 
@@ -82,11 +81,9 @@
 						</div>
 					</div>
 					<div class="panel-body">
-						<table data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
+						<table id="table" data-toggle="table" data-url="ViewTeacher"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
 						    <thead>
 						    <tr>
-
-						        <th data-field="teacher_id" data-halign="center" data-align="center" data-sortable="true">Teacher ID</th>
 						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Teacher Name</th>
 						        <th data-field="teacher_workload" data-halign="center" data-align="center" data-sortable="true">Teacher WorkLoad</th>
 						    </tr>
@@ -109,7 +106,7 @@
 
         			<div class="form-group">
 						<label>Teacher Name:</label>
-						<input id="new_teacher_name" required class="form-control" name="course_name" placeholder="Please input Teacher Name">
+						<input id="teacher_name_input" required class="form-control" name="teacher_name" placeholder="Please input Teacher Name">
 					</div>
 
         			</div>
@@ -129,6 +126,7 @@
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/sweetalert.js"></script>
 	<script src="js/bootstrap-table.js"></script>
 	<script src="js/bootstrap-table-contextmenu.js"></script>
 	<script src="js/bootstrap-table-export.js"></script>
@@ -137,6 +135,48 @@
 	<script src="js/jspdf.min.js"></script>
 	<script src="js/jspdf.plugin.autotable.js"></script>
 	<script src="js/xlsx.core.min.js"></script>
+	
+	<script>
+		$("form#editdata").submit(function(){
+			var formData = new FormData(this);
+			$.ajax({
+			url: "AddTeacher",
+			type: 'POST',
+			data: formData,
+			contentType: false,
+            cache: false,
+            processData:false,
+			success: function (response)
+			{
+
+				var answer = response;
+					switch ( answer )
+					{
+						case 'success' :
+							swal("Done!", "Add Succeed", "success");
+								break;
+						case 'fail' :
+							swal("Add Failed!", "Please check your internet connection!", "error");
+								break;
+
+					}
+					$('#table').bootstrapTable('refresh', {silent: true});
+					$('#newTeacher').modal('hide');
+					$('#teacher_name_input').val('');
+					
+			},
+				error: function (xhr, ajaxOptions, thrownError)
+				{
+					swal("Add Failed!", "Please check your internet connection!", "error");
+				},
+			cache: false,
+			contentType: false,
+			processData: false
+});
+
+return false;
+});
+</script>
 </body>
 
 </html>

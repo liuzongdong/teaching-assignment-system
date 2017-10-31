@@ -38,7 +38,6 @@
 							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 						</ul>
 					</li>
-
 				</ul>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -127,11 +126,7 @@
 				</div>
 			</div>
 		</div><!--/.row-->
-
-
-
 	</div>	<!--/.main-->
-
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>
