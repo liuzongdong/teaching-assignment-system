@@ -8,8 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONArray;
+import com.google.gson.JsonArray;
 
 import course.assign.Course;
 
@@ -36,7 +35,7 @@ public class ViewBasicCourse extends HttpServlet {
 		response.setContentType("text/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		Course course = new Course();
-		JSONArray array = course.ViewBasicCourse();
+		JsonArray array = course.ViewBasicCourse();
 		out = response.getWriter();
 		out.println(array);
 	}

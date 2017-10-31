@@ -1,8 +1,9 @@
 package course.assign;
 
 import java.sql.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import database.connect.SQLConnect;
 
 public class Course 
@@ -337,10 +338,9 @@ public class Course
 	 *
 	 * @return Json Data. Can be printed in the table.(View Course Page)
 	 */
-	@SuppressWarnings("unchecked")
-	public JSONArray ViewCourse()
+	public JsonArray ViewCourse()
 	{
-		JSONArray jsonarray = new JSONArray();
+		JsonArray jsonarray = new JsonArray();
 		try 
 		{
 			String sql = "select * from course, teacher, course_assign WHERE course.course_id = course_assign.course_assign_id AND teacher.teacher_id = course_assign.course_teacher_id";
@@ -350,12 +350,12 @@ public class Course
 	        ResultSet rs = ps.executeQuery();
 	        while(rs.next())
 	        {
-	        	JSONObject jsonobj = new JSONObject();
-	        	jsonobj.put("course_id", rs.getString("course_id"));
-	        	jsonobj.put("teacher_name", rs.getString("teacher_name"));
-	        	jsonobj.put("course_name", rs.getString("course_name"));
-	        	jsonobj.put("course_category", rs.getString("course_category"));
-	        	jsonobj.put("course_student", rs.getString("course_student"));
+	        	JsonObject jsonobj = new JsonObject();
+	        	jsonobj.addProperty("course_id", rs.getString("course_id"));
+	        	jsonobj.addProperty("teacher_name", rs.getString("teacher_name"));
+	        	jsonobj.addProperty("course_name", rs.getString("course_name"));
+	        	jsonobj.addProperty("course_category", rs.getString("course_category"));
+	        	jsonobj.addProperty("course_student", rs.getString("course_student"));
 	        	jsonarray.add(jsonobj);
 	        }
 		} 
@@ -376,10 +376,9 @@ public class Course
 	 *
 	 * @return Json Data. Can be printed in the table.(Add Course Page)
 	 */
-	@SuppressWarnings("unchecked")
-	public JSONArray ViewBasicCourse()
+	public JsonArray ViewBasicCourse()
 	{
-		JSONArray jsonarray = new JSONArray();
+		JsonArray jsonarray = new JsonArray();
 		try 
 		{
 			String sql = "select * from course";
@@ -389,11 +388,11 @@ public class Course
 	        ResultSet rs = ps.executeQuery();
 	        while(rs.next())
 	        {
-	        	JSONObject jsonobj = new JSONObject();
-	        	jsonobj.put("course_id", rs.getString("course_id"));
-	        	jsonobj.put("course_name", rs.getString("course_name"));
-	        	jsonobj.put("course_category", rs.getString("course_category"));
-	        	jsonobj.put("course_student", rs.getString("course_student"));
+	        	JsonObject jsonobj = new JsonObject();
+	        	jsonobj.addProperty("course_id", rs.getString("course_id"));
+	        	jsonobj.addProperty("course_name", rs.getString("course_name"));
+	        	jsonobj.addProperty("course_category", rs.getString("course_category"));
+	        	jsonobj.addProperty("course_student", rs.getString("course_student"));
 	        	jsonarray.add(jsonobj);
 	        }
 		} 
