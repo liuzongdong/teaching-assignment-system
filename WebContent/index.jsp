@@ -49,9 +49,9 @@
 			<li><a href="addcourse.jsp"><span class="glyphicon glyphicon-th"></span> Add Course</a></li>
 			<li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
-			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Workload</a></li>
+			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Teacher</a></li>
 
-			
+
 			<li role="presentation" class="divider"></li>
 
 		</ul>

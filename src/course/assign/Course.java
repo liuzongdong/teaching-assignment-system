@@ -14,6 +14,8 @@ public class Course
 	private String courseStudent;
 	private Double courseTeacherWorkload;
 	private Double courseTAWorkload;
+	private int isIT;
+	private int isDuplication;
 	
 	
 	/**
@@ -393,6 +395,8 @@ public class Course
 	        	jsonobj.addProperty("course_name", rs.getString("course_name"));
 	        	jsonobj.addProperty("course_category", rs.getString("course_category"));
 	        	jsonobj.addProperty("course_student", rs.getString("course_student"));
+	        	jsonobj.addProperty("course_duplicate", rs.getString("course_duplicate"));
+	        	jsonobj.addProperty("course_type", rs.getString("course_type"));
 	        	jsonarray.add(jsonobj);
 	        }
 		} 
@@ -412,7 +416,7 @@ public class Course
 	 * @param course_id Data type is int.
 	 * @return true if the course is duplicated, otherwise false.
 	 */
-	public boolean IsDuplicate(int course_id)
+	public static boolean IsDuplicate(int course_id)
 	{
 		boolean status = false;
 		try 
@@ -491,10 +495,10 @@ public class Course
 	        ResultSet rs = ps.executeQuery();
 	        while(rs.next())
 	        {
-	        	courseName = rs.getString("course_name");
-	        	courseStudent = rs.getString("course_student");
-	        	courseTeacherWorkload = rs.getDouble("course_teacher_workload");
-	        	courseTAWorkload = rs.getDouble("course_ta_workload");
+	        		courseName = rs.getString("course_name");
+	        		courseStudent = rs.getString("course_student");
+	        		courseTeacherWorkload = rs.getDouble("course_teacher_workload");
+	        		courseTAWorkload = rs.getDouble("course_ta_workload");
 	        }
 		} 
 		catch (Exception e) 
@@ -505,6 +509,66 @@ public class Course
 		{
 			SQLConnect.closeDB();
 		}
+	}
+	
+	public static boolean SetDuplication(int id)
+	{
+		boolean status = false;
+		try 
+		{
+			String sql = "UPDATE course SET course_duplicate = 1, course_teacher_workload = 0.5 WHERE course_id = ?";
+			PreparedStatement ps = null;
+	        Connection conn = SQLConnect.connetDB();
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, id);
+	        ps.executeUpdate();
+	        status = true;
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return status;
+	}
+	
+	
+	/*
+	 * 
+	 * 
+	 */
+	public static boolean AddSection(int number, String name, String category, String student)
+	{
+		boolean status = false;
+		try 
+		{
+			for(int i = 1; i <= number; i++)
+			{
+				String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate, course_teacher_workload) VALUES(?, ?, ?, ?, ?)";
+				PreparedStatement ps = null;
+		        Connection conn = SQLConnect.connetDB();
+		        ps = conn.prepareStatement(sql);
+		        ps.setString(1, name + " (" + i + ")");
+		        ps.setString(2, category);
+		        ps.setString(3, student);
+		        ps.setInt(4, 1);
+		        ps.setDouble(5, 0.5);
+		        ps.executeUpdate();
+			}
+			status = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return status;
 	}
 	
 	/**
