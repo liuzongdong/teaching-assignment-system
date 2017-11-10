@@ -358,12 +358,12 @@
 	        	{
 	        		if(row.course_duplicate == 1)
 	        			{
-	        				alert("Forbidden!");
+	        				swal("Error!", "You can't add sections for this course.", "error");
 	        				return;
 	        			}
 	        		if(row.course_type == 1)
 	        			{
-	        				alert("IT Course Can't Add Section!");
+	        				swal("Error!", "You can't add sections for IT course", "error");
 	        				return;
 	        			}
 		        	$('#add_category').val(row.course_category);

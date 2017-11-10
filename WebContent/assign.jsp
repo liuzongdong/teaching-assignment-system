@@ -89,9 +89,12 @@ pageEncoding="ISO-8859-1"%>
 				<div class="panel panel-default">
 					<div class="panel-heading">MC Course
 						<div style="float:right;">
-							<button class="btn btn-primary" type="button" name="button">Submit</button>
+							<div style="float:right">
+							<label for="submitForm" class="btn btn-primary"> Submit </label>
+						</div>
 						</div>
 					</div>
+					<form id="data" method="post">
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
@@ -153,7 +156,12 @@ pageEncoding="ISO-8859-1"%>
 							%>
 							</select>
 						</div>
+						<div class="form-group" style="text-align:center">
+                    			<button id="submitForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
+                    			<button id="resetForm" type="reset" class="btn btn-default hidden">Reset Button</button>
+                  		</div>
 					</div>
+					</form>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">GE Course
@@ -226,10 +234,49 @@ pageEncoding="ISO-8859-1"%>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/sweetalert.js"></script>
 	<script src="js/bootstrap-select.js"></script>
 	<script src="js/bootstrap-table.js"></script>
 	<script src="js/bootstrap-table-resizable.js"></script>
 	<script src="js/colResizable.js"></script>
+	
+	<script>
+		$("form#data").submit(function(){
+			var formData = new FormData(this);
+			$.ajax({
+			url: "AssignCourse",
+			type: 'POST',
+			data: formData,
+			contentType: false,
+            cache: false,
+            processData:false,
+			success: function (response)
+			{
+				var answer = response;
+					switch ( answer )
+					{
+						case 'success' :
+							swal("Done!", "Add Succeed", "success");
+								break;
+						case 'fail' :
+							swal("Add Failed!", "Please check your internet connection!", "error");
+								break;
+
+					}
+					$('#table').bootstrapTable('refresh', {silent: true});
+	},
+	error: function (xhr, ajaxOptions, thrownError)
+	{
+		swal("Add Failed!", "Please check your internet connection!", "error");
+	},
+	cache: false,
+	contentType: false,
+	processData: false
+});
+
+return false;
+});
+</script>
 </body>
 
 </html>

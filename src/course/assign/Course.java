@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import database.connect.SQLConnect;
+import other.RandomString;
 
 public class Course 
 {
@@ -14,8 +15,9 @@ public class Course
 	private String courseStudent;
 	private Double courseTeacherWorkload;
 	private Double courseTAWorkload;
-	private int isIT;
-	private int isDuplication;
+	private int courseType;
+	private int courseIsDuplication;
+	private String courseDuplicateCode;
 	
 	
 	/**
@@ -180,6 +182,63 @@ public class Course
 	public Double GetCourseTAWorkLoad()
 	{
 		return courseTAWorkload;
+	}
+	
+	public static String GetDuplicateCode(int id)
+	{
+		String code = "";
+		try 
+		{
+			String sql = "SELECT course_duplicate_code FROM course WHERE course_id = ?";
+			PreparedStatement ps = null;
+	        Connection conn = SQLConnect.connetDB();
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+	        while(rs.next())
+	        {
+	        	code = rs.getString("course_duplicate_code");
+	        }
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return code;
+	}
+	
+	public static boolean HasThisDuplicateCourse(int cid, int tid)
+	{
+		boolean status = false;
+		try 
+		{
+			String sql = "SELECT course_assign_id FROM course_assign WHERE course_teacher_id = ?";
+			PreparedStatement ps = null;
+	        Connection conn = SQLConnect.connetDB();
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, tid);
+	        ResultSet rs = ps.executeQuery();
+	        while(rs.next())
+	        {
+	        	if (GetDuplicateCode(cid).equals(GetDuplicateCode(rs.getInt("course_assign_id")))) 
+	        	{
+					status = true;
+				}
+	        }
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return status;
 	}
 	
 	/**
@@ -495,10 +554,12 @@ public class Course
 	        ResultSet rs = ps.executeQuery();
 	        while(rs.next())
 	        {
-	        		courseName = rs.getString("course_name");
-	        		courseStudent = rs.getString("course_student");
-	        		courseTeacherWorkload = rs.getDouble("course_teacher_workload");
-	        		courseTAWorkload = rs.getDouble("course_ta_workload");
+	        	courseID = course_id;
+	        	courseName = rs.getString("course_name");
+	        	courseStudent = rs.getString("course_student");
+	        	courseTeacherWorkload = rs.getDouble("course_teacher_workload");
+	        	courseTAWorkload = rs.getDouble("course_ta_workload");
+	        	courseDuplicateCode = rs.getString("course_duplicate_code");
 	        }
 		} 
 		catch (Exception e) 
@@ -545,9 +606,10 @@ public class Course
 		boolean status = false;
 		try 
 		{
+			String randomString = RandomString.getSaltString();
 			for(int i = 1; i <= number; i++)
 			{
-				String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate, course_teacher_workload) VALUES(?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate, course_duplicate_code, course_teacher_workload) VALUES(?, ?, ?, ?, ?, ?)";
 				PreparedStatement ps = null;
 		        Connection conn = SQLConnect.connetDB();
 		        ps = conn.prepareStatement(sql);
@@ -555,7 +617,8 @@ public class Course
 		        ps.setString(2, category);
 		        ps.setString(3, student);
 		        ps.setInt(4, 1);
-		        ps.setDouble(5, 0.5);
+		        ps.setString(5, randomString);
+		        ps.setDouble(6, 0.5);
 		        ps.executeUpdate();
 			}
 			status = true;
@@ -611,13 +674,24 @@ public class Course
 		boolean status = false;
 		try 
 		{
-			String sql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
+			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
+			Double workload = 0.0;
 			PreparedStatement ps = null;
 	        Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
-	        ps.setDouble(1, courseTeacherWorkload);
-	        ps.setInt(2, teacher_id);
-	        ps.executeUpdate();
+	        ps.setInt(1, teacher_id);
+	        ResultSet rs = ps.executeQuery();
+	        while(rs.next())
+	        {
+	        	workload = rs.getDouble("teacher_workload");
+	        }
+			String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
+			PreparedStatement newps = null;
+	        Connection newconn = SQLConnect.connetDB();
+	        newps = newconn.prepareStatement(newsql);
+	        newps.setDouble(1, workload + courseTeacherWorkload);
+	        newps.setInt(2, teacher_id);
+	        newps.executeUpdate();
 	        status = true;
 		} 
 		catch (Exception e) 
