@@ -98,7 +98,7 @@ pageEncoding="ISO-8859-1"%>
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
-							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
+							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
 							<%
 								Connection con = null;
 								PreparedStatement ps = null;

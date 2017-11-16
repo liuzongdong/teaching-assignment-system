@@ -251,13 +251,14 @@ public class Course
 		boolean status = false;
 		try 
 		{
-			String sql = "INSERT INTO course (course_name, course_category, course_student) VALUES(?, ?, ?)";
+			String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate_code) VALUES(?, ?, ?, ?)";
 			PreparedStatement ps = null;
 	        Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, courseName);
 	        ps.setString(2, courseCategory);
 	        ps.setString(3, courseStudent);
+	        ps.setString(4, RandomString.getSaltString());
 	        ps.executeUpdate();
 	        status = true;
 		} 

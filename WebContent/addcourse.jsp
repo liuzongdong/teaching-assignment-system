@@ -106,6 +106,7 @@
 										<option value="CST Y2">CST Y2</option>
 										<option value="CST Y3">CST Y3</option>
 										<option value="CST Y4">CST Y4</option>
+										<option value="All Students">All Students</option>
 									</select>
 							</div>
 							<div class="form-group" style="text-align:center">
@@ -253,6 +254,7 @@
 										<option value="CST Y2">CST Y2</option>
 										<option value="CST Y3">CST Y3</option>
 										<option value="CST Y4">CST Y4</option>
+										<option value="All Students">All Students</option>
 								</select>
 						</div>
 
