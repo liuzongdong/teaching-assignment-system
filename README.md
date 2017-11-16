@@ -52,7 +52,8 @@
   `git init`
 
   For example: 
-  `C:\Users\chenn\Desktop\Y3(2)\workshop2> git init`
+  
+  `C:\Users\xxx\Desktop\Y3\workshop2> git init`
 
 ### Cloning an Existing Repository (This is what you need to do).
   If you want to get a copy of an existing Git repository – for example,
@@ -60,7 +61,8 @@
 
   `git clone`
 
-  To clone a repository you need to use git clone <url> (you can find it on this page with the Green button). 
+  To clone a repository you need to use git clone <url> (copy it by clicking the Green button on this page). 
+  
   For example:
 
   `git clone https://github.com/liuzongdong/teaching-assignment-system.git`
@@ -82,7 +84,8 @@
   Firstly, type: `git status` to check if your work tree clean or not.
 
   For example: 
-  'C:\Users\chenn\Desktop\Y3(2)\workshop2\teaching-assignment-system>git status'
+  
+  `C:\Users\xxx\Desktop\Y3\workshop2\teaching-assignment-system>git status`
 
     If it is clean, it will show:
 
