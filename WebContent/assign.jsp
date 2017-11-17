@@ -7,13 +7,6 @@
 
 %>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*"%>
-<%!String driverName = "com.mysql.jdbc.Driver";%>
-<%!String url = "jdbc:mysql://localhost:3306/tas";%>
-<%!String user = "root";%>
-<%!String psw = "";%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,8 +72,7 @@ pageEncoding="ISO-8859-1"%>
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 class="page-header">Course Assignment</h3>
-
+				<pre class="page-header">Course Assignment</pre>
 			</div>
 		</div><!--/.row-->
 
@@ -99,61 +91,20 @@ pageEncoding="ISO-8859-1"%>
 						<div class="form-group">
 							<label>Please Choose Course:</label>
 							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
-							<%
-								Connection con = null;
-								PreparedStatement ps = null;
-								try
-								{
-									Class.forName(driverName);
-									con = DriverManager.getConnection(url,user,psw);
-									String sql = "SELECT * FROM course WHERE course_category = 'MC'";
-									ps = con.prepareStatement(sql);
-									ResultSet rs = ps.executeQuery();
-									while(rs.next())
-									{
-										String course_name = rs.getString("course_name");
-										int course_id = rs.getInt("course_id");
-							%>
-								<option value="<%=course_id %>"><%=course_name %></option>
-							<%
-									}
-							%>
-							<%
-								}
-									catch(SQLException sqe)
-								{
-								out.println(sqe);
-								}
-							%>
+							<optgroup id="mc-course" label="Unassigned Course">
+							
+							</optgroup>
+							
+							<optgroup id="un-mc-course" label="Assigned Course" disabled>
+
+							</optgroup>
+							
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
 							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="teacher">
-								<%
-								try
-								{
-									Class.forName(driverName);
-									con = DriverManager.getConnection(url,user,psw);
-									String sql = "SELECT * FROM teacher";
-									ps = con.prepareStatement(sql);
-									ResultSet rs = ps.executeQuery();
-									while(rs.next())
-									{
-										String teacher_name = rs.getString("teacher_name");
-										int teacher_id = rs.getInt("teacher_id");
-							%>
-								<option value="<%=teacher_id %>"><%=teacher_name %></option>
-							<%
-									}
-							%>
-							<%
-								}
-									catch(SQLException sqe)
-								{
-								out.println(sqe);
-								}
-							%>
+
 							</select>
 						</div>
 						<div class="form-group" style="text-align:center">
@@ -173,40 +124,12 @@ pageEncoding="ISO-8859-1"%>
 						<div class="form-group">
 							<label>Please Choose Course:</label>
 							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
-							<%
-
-								try
-								{
-									Class.forName(driverName);
-									con = DriverManager.getConnection(url,user,psw);
-									String sql = "SELECT * FROM course WHERE course_category = 'GE'";
-									ps = con.prepareStatement(sql);
-									ResultSet rs = ps.executeQuery();
-									while(rs.next())
-									{
-										String course_name = rs.getString("course_name");
-										int course_id = rs.getInt("course_id");
-							%>
-								<option value="<%=course_id %>"><%=course_name %></option>
-							<%
-									}
-							%>
-							<%
-								}
-									catch(SQLException e)
-								{
-								out.println(e);
-								}
-							%>
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
 							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6"name="teacher">
-								<option value="1">Amy</option>
-								<option value="2">Gigi</option>
-								<option value="3">HP</option>
-								<option value="4">Weifeng</option>
+
 							</select>
 						</div>
 					</div>
@@ -239,6 +162,61 @@ pageEncoding="ISO-8859-1"%>
 	<script src="js/bootstrap-table.js"></script>
 	<script src="js/bootstrap-table-resizable.js"></script>
 	<script src="js/colResizable.js"></script>
+
+	<script>
+		window.onload = function() {
+			GetMCList();
+			setTimeout(function() {
+				GetMCUnassignedList();
+			}, 50);
+		};
+	</script>
+
+	<script>
+		function GetMCList()
+		{
+			$.ajax({
+				url: "MCCourseList",
+				type: 'GET',
+				success: function (response)
+				{
+					$('#mc-course').append(response);
+					$('.selectpicker').selectpicker('refresh');
+				},
+		error: function (xhr, ajaxOptions, thrownError)
+		{
+			alert("fail");
+		},
+		cache: false,
+		contentType: false,
+		processData: false
+	});
+		}
+	</script>
+	
+	<script>
+		function GetMCUnassignedList()
+		{
+			$.ajax({
+				url: "MCUnassignedCourseList",
+				type: 'GET',
+				success: function (response)
+				{
+					$('#un-mc-course').append(response);
+					$('.selectpicker').selectpicker('refresh');
+				},
+		error: function (xhr, ajaxOptions, thrownError)
+		{
+			alert("fail");
+		},
+		cache: false,
+		contentType: false,
+		processData: false
+	});
+		}
+	</script>
+	
+	
 	
 	<script>
 		$("form#data").submit(function(){
@@ -264,10 +242,14 @@ pageEncoding="ISO-8859-1"%>
 
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
+					GetMCList();
+					setTimeout(function() {
+						GetMCUnassignedList();
+					}, 50);
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{
-		swal("Add Failed!", "Please check your internet connection!", "error");
+		alert("fail");
 	},
 	cache: false,
 	contentType: false,

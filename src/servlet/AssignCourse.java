@@ -57,7 +57,7 @@ public class AssignCourse extends HttpServlet {
 		}
 		if (course.AssginCourse(Integer.parseInt(teacher_id)))
 		{
-			if (course.AddTeacherWorkLoad(Integer.parseInt(teacher_id))) 
+			if (course.AddTeacherWorkLoad(Integer.parseInt(teacher_id)) && course.SetAssigned()) 
 			{
 				out.append("success");
 			}

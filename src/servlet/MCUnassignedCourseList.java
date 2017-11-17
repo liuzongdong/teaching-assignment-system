@@ -15,31 +15,31 @@ import javax.servlet.http.HttpServletResponse;
 import database.connect.SQLConnect;
 
 /**
- * Servlet implementation class MCCourseList
+ * Servlet implementation class MCUnassignedCourseList
  */
-@WebServlet("/MCCourseList")
-public class MCCourseList extends HttpServlet {
+@WebServlet("/MCUnassignedCourseList")
+public class MCUnassignedCourseList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public MCCourseList() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MCUnassignedCourseList() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String output = "";
 		try 
 		{
-			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 0";
+			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1";
 			PreparedStatement ps = null;
 			Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class MCCourseList extends HttpServlet {
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("MC Wrong");
+			System.out.println("MC UnsignWrong");
 		}
 		finally 
 		{
