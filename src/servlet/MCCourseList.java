@@ -36,6 +36,8 @@ public class MCCourseList extends HttpServlet {
 	{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		String MCOutput = "";
+		String UnMCOuput = "";
 		String output = "";
 		try 
 		{
@@ -46,7 +48,7 @@ public class MCCourseList extends HttpServlet {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				output += "<option value='" + rs.getInt("course_id") + "'>" + rs.getString("course_name") + "</option>\n";
+				MCOutput += "<option value='" + rs.getInt("course_id") + "'>" + rs.getString("course_name") + "</option>\n";
 			}
 		} 
 		catch (Exception e) 
@@ -57,6 +59,28 @@ public class MCCourseList extends HttpServlet {
 		{
 			SQLConnect.closeDB();
 		}
+		try 
+		{
+			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1";
+			PreparedStatement ps = null;
+			Connection conn = SQLConnect.connetDB();
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				UnMCOuput += "<option value='" + rs.getInt("course_id") + "'>" + rs.getString("course_name") + "</option>\n";
+			}
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("MC Wrong");
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		
+		output = "<optgroup label=\"Unassigned Course\">\n" + MCOutput + "</optgroup>" + "<optgroup label=\"Assigned Course\" disabled>" + UnMCOuput + "</optgroup>";
 		out.append(output);
 	}
 

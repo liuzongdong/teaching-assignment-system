@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import database.connect.SQLConnect;
 
 /**
- * Servlet implementation class MCUnassignedCourseList
+ * Servlet implementation class TeacherList
  */
-@WebServlet("/MCUnassignedCourseList")
-public class MCUnassignedCourseList extends HttpServlet {
+@WebServlet("/TeacherList")
+public class TeacherList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MCUnassignedCourseList() {
+    public TeacherList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,27 +36,51 @@ public class MCUnassignedCourseList extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		String TeacherOutput = "";
+		String OverTeacherOuput = "";
 		String output = "";
 		try 
 		{
-			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1";
+			String sql = "SELECT * FROM teacher WHERE teacher_workload < 3";
 			PreparedStatement ps = null;
 			Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				output += "<option value='" + rs.getInt("course_id") + "'>" + rs.getString("course_name") + "</option>\n";
+				TeacherOutput += "<option value='" + rs.getInt("teacher_id") + "'>" + rs.getString("teacher_name") + "</option>\n";
 			}
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("MC UnsignWrong");
+			System.out.println(e);
 		}
 		finally 
 		{
 			SQLConnect.closeDB();
 		}
+		try 
+		{
+			String sql = "SELECT * FROM teacher WHERE teacher_workload >= 3";
+			PreparedStatement ps = null;
+			Connection conn = SQLConnect.connetDB();
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				OverTeacherOuput += "<option value='" + rs.getInt("teacher_id") + "'>" + rs.getString("teacher_name") + "</option>\n";
+			}
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("MC Wrong");
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		
+		output = "<optgroup label=\"Availabe Teacher\">\n" + TeacherOutput + "</optgroup>" + "<optgroup label=\"Unavailable Teacher\" disabled>" + OverTeacherOuput + "</optgroup>";
 		out.append(output);
 	}
 

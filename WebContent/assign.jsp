@@ -70,13 +70,7 @@
 			</ol>
 		</div><!--/.row-->
 
-		<div class="row">
-			<div class="col-lg-12">
-				<pre class="page-header">Course Assignment</pre>
-			</div>
-		</div><!--/.row-->
-
-		<div class="row">
+		<div style="padding-top:20px;"class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">MC Course
@@ -91,13 +85,6 @@
 						<div class="form-group">
 							<label>Please Choose Course:</label>
 							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
-							<optgroup id="mc-course" label="Unassigned Course">
-							
-							</optgroup>
-							
-							<optgroup id="un-mc-course" label="Assigned Course" disabled>
-
-							</optgroup>
 							
 							</select>
 						</div>
@@ -164,11 +151,9 @@
 	<script src="js/colResizable.js"></script>
 
 	<script>
-		window.onload = function() {
+		window.onload = function() 
+		{
 			GetMCList();
-			setTimeout(function() {
-				GetMCUnassignedList();
-			}, 50);
 		};
 	</script>
 
@@ -180,7 +165,7 @@
 				type: 'GET',
 				success: function (response)
 				{
-					$('#mc-course').append(response);
+					$('#mc_course').append(response);
 					$('.selectpicker').selectpicker('refresh');
 				},
 		error: function (xhr, ajaxOptions, thrownError)
@@ -193,30 +178,6 @@
 	});
 		}
 	</script>
-	
-	<script>
-		function GetMCUnassignedList()
-		{
-			$.ajax({
-				url: "MCUnassignedCourseList",
-				type: 'GET',
-				success: function (response)
-				{
-					$('#un-mc-course').append(response);
-					$('.selectpicker').selectpicker('refresh');
-				},
-		error: function (xhr, ajaxOptions, thrownError)
-		{
-			alert("fail");
-		},
-		cache: false,
-		contentType: false,
-		processData: false
-	});
-		}
-	</script>
-	
-	
 	
 	<script>
 		$("form#data").submit(function(){
@@ -243,9 +204,6 @@
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
 					GetMCList();
-					setTimeout(function() {
-						GetMCUnassignedList();
-					}, 50);
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{

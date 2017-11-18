@@ -68,16 +68,34 @@
 			</ol>
 		</div><!--/.row-->
 
-		<div class="row">
-			<div class="col-lg-12">
-				<h3 class="page-header">Course</h3>
-			</div>
-		</div><!--/.row-->
-
-		<div class="row">
+		<div style="padding-top:20px;"class="row">
 			<div class="col-md-6">
+			<div class="panel panel-default">
+					<div class="panel-heading">Import From Excel
+						<div style="float:right">
+							<label for="submitDataForm" class="btn btn-primary"> Import </label>
+						</div>
+					</div>
+					<div class="panel-body">
+						<form role="form" id="import" method="post" enctype="multipart/form-data">
+
+							<pre>Download the template Excel file <a href="files/Course.xlsx">here</a></pre>
+
+							<div class="form-group">
+								<label>File:</label>
+								<input required name="file" type="file" class="filestyle" data-buttonName="btn-primary">
+							</div>
+
+							<div class="form-group" style="text-align:center">
+                    			<button id="submitDataForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
+                    			<button id="resetDataForm" type="reset" class="btn btn-default hidden">Reset Button</button>
+                  			</div>
+
+						</form>
+					</div>
+				</div>
 				<div class="panel panel-default">
-					<div class="panel-heading">Add MC/GE Course
+					<div class="panel-heading">Add Course
 						<div style="float:right">
 							<label for="submitForm" class="btn btn-primary"> Submit </label>
 							<label for="resetForm" class="btn btn-default"> Reset </label>
@@ -92,10 +110,25 @@
 							</div>
 
 							<div class="form-group">
+								<label>Section(s):</label> <select data-width="100%"
+									class="selectpicker" name="course_section">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select>
+							</div>
+
+							<div class="form-group">
 							<label>Please Choose Category:</label>
 							<select data-width="100%" class="selectpicker" name="course_category">
 								<option value="MC">MC</option>
 								<option value="GE">GE</option>
+								<option value="MC For Others">MC For Others</option>
 							</select>
 						</div>
 
@@ -131,7 +164,7 @@
 
 							<div class="form-group">
 								<label>Number:</label>
-								<input required name="it_number" class="form-control" placeholder="Please input Number">
+								<input required name="it_number" type="number" min="0" class="form-control" placeholder="Please input Number">
 							</div>
 
 							<div class="form-group" style="text-align:center">
@@ -150,7 +183,7 @@
 			<div class="panel panel-default">
 					<div class="panel-heading">View Course</div>
 					<div class="panel-body">
-						<table id="table" data-show-export="true" data-toggle="table" data-url="ViewBasicCourse" data-height="463" data-show-refresh="true" data-show-toggle="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true"  data-sort-order="desc">
+						<table id="table" data-height="779"data-show-export="true" data-toggle="table" data-url="ViewBasicCourse" data-page-list="[20, 50, 100]" data-page-size="20" data-show-refresh="true" data-show-toggle="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
 						    <thead>
 						    <tr>
 								<th data-visible="false" data-field="course_id" data-halign="center" data-align="center" data-sortable="true">Course ID</th>
@@ -244,6 +277,7 @@
 							<select id="edit_category" data-width="100%" class="selectpicker" name="course_category">
 								<option value="MC">MC</option>
 								<option value="GE">GE</option>
+								<option value="MC For Others">MC For Others</option>
 							</select>
 						</div>
 
@@ -276,6 +310,7 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/sweetalert.js"></script>
+	<script src="js/bootstrap-filestyle.js"></script>
 	<script src="js/bootstrap-select.js"></script>
 	<script src="js/bootstrap-table.js"></script>
 	<script src="js/bootstrap-table-contextmenu.js"></script>
@@ -285,9 +320,7 @@
 	<script src="js/jspdf.min.js"></script>
 	<script src="js/jspdf.plugin.autotable.js"></script>
 	<script src="js/xlsx.core.min.js"></script>
-	<script>
-
-	</script>
+	
     <script>
 	$('#table').bootstrapTable({
 	    contextMenu: '#context-menu',
@@ -379,6 +412,7 @@
 	</script>
 
 	<script>
+	
 		$("form#data").submit(function(){
 			var formData = new FormData(this);
 			$.ajax({
@@ -399,6 +433,49 @@
 								break;
 						case 'fail' :
 							swal("Add Failed!", "Please check your internet connection!", "error");
+								break;
+
+					}
+					$('#table').bootstrapTable('refresh', {silent: true});
+	},
+	error: function (xhr, ajaxOptions, thrownError)
+	{
+		swal("Add Failed!", "Please check your internet connection!", "error");
+	},
+	cache: false,
+	contentType: false,
+	processData: false
+});
+
+return false;
+});
+</script>
+
+<script>
+	
+		$("form#import").submit(function(){
+			var formData = new FormData(this);
+			$.ajax({
+			url: "ImportData",
+			type: 'POST',
+			data: formData,
+			contentType: false,
+            cache: false,
+            processData:false,
+			success: function (response)
+			{
+
+				var answer = response;
+					switch ( answer )
+					{
+						case 'success' :
+							swal("Done!", "Import Succeed", "success");
+								break;
+						case 'fail' :
+							swal("Import Failed!", "Please check your Excel file!", "error");
+								break;
+						case 'wrong' :
+							swal("Import Failed!", "Please upload a Excel workbook file!", "error");
 								break;
 
 					}
