@@ -96,13 +96,6 @@
 
   **** You will type this command a lot of times. ****
 
-  Before Coding, be sure you create a new branch
-
-  `git branch adam-dev` or `git branch tifa-dev` or `git branch hugh-dev`
-
-  After that, you can type: `git checkout xxxx-dev` to change the branch. 
-
-  PLEASE EDIT CODE IN YOUR OWN BRANCH, DO NOT PULL IT INTO MASTER BRANCH.
 
 ### Add file and Commit
 
@@ -114,7 +107,7 @@
 
   type: `git commit -m "Here's the comment about your code"`
 
-  type: `git push orign xxxx-dev` xxxx is your own branch, for example: tifa-dev
+  type: `git push`
 
   After you push your code, Wechat me, I will review it.
 
@@ -127,15 +120,6 @@
   `git pull`
 
   It will update your MASTER branch.
-
-### After merge branch
-
-  If I merge your branch into master, now you can just delete your branch, because your master branch is always up tp date
-
-  `git branch -D xxxx-dev` is what you need, after deleting it, you can create a new branch with xxxx-dev again and keep coding.
-
-  Remember, DO NOT PUSH CODE INTO MASTER, which means, `git push orign xxxx-dev` is the only thing you need.
-
 
 ## SQL
 
