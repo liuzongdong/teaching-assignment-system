@@ -143,12 +143,12 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Workload Table</div>
 						<div class="panel-body">
-							<table data-toggle="table" data-height="415" data-url="" >
+							<table data-toggle="table" data-height="415" data-url="TestJson" >
 							    <thead>
 							    <tr>
 							        <th data-field="course_name" data-halign="center" data-align="center">Course Name</th>
 							        <th data-field="teacher_name" data-halign="center" data-align="center">Teacher Name</th>
-							        <th data-field="assign_operation" data-halign="center" data-align="center">Operation</th>
+							        <th data-field="operation" data-halign="center" data-align="center">Operation</th>
 							    </tr>
 							    </thead>
 							</table>

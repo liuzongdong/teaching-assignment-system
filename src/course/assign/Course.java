@@ -448,6 +448,7 @@ public class Course
 				jsonobj.addProperty("course_name", rs.getString("course_name"));
 				jsonobj.addProperty("course_category", rs.getString("course_category"));
 				jsonobj.addProperty("course_student", rs.getString("course_student"));
+				jsonobj.addProperty("operation", rs.getString("operation"));
 				jsonarray.add(jsonobj);
 			}
 		} 
@@ -699,12 +700,13 @@ public class Course
 		boolean status = false;
 		try 
 		{
-			String sql = "INSERT INTO course_assign (course_assign_id, course_teacher_id) VALUES(?, ?)";
+			String sql = "INSERT INTO course_assign (course_assign_id, course_teacher_id, operation) VALUES(?, ?, ?)";
 			PreparedStatement ps = null;
 			Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.setInt(2, teacher_id);
+			ps.setDouble(3, courseTeacherWorkload);
 			ps.executeUpdate();
 			status = true;
 		} 
