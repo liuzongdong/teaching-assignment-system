@@ -69,7 +69,7 @@
 		</div><!--/.row-->
 
 		<div style="padding-top:20px;"class="row">
-			<div class="col-md-6">
+			<div class="col-md-5">
 			<div class="panel panel-default">
 					<div class="panel-heading">Import From Excel
 						<div style="float:right">
@@ -178,7 +178,7 @@
 
 			</div><!--/.col-->
 
-			<div class="col-md-6">
+			<div class="col-md-7">
 
 			<div class="panel panel-default">
 					<div class="panel-heading">View Course</div>
@@ -187,9 +187,9 @@
 						    <thead>
 						    <tr>
 								<th data-visible="false" data-field="course_id" data-halign="center" data-align="center" data-sortable="true">Course ID</th>
-						        <th data-field="course_name" data-halign="center" data-align="center" data-sortable="true">Name</th>
-						        <th data-field="course_category"  data-halign="center" data-align="center" data-sortable="true">Category</th>
-						        <th data-field="course_student" data-halign="center" data-align="center" data-sortable="true">Student</th>
+						        <th data-field="course_name" data-halign="center" data-align="center" data-sortable="true">Course Name</th>
+						        <th data-field="course_category"  data-halign="center" data-align="center" data-falign="center" data-valign="middle" data-sortable="true">Category</th>
+						        <th data-field="course_student" data-halign="center" data-align="center" data-falign="center" data-valign="middle" data-sortable="true">Student</th>
 						    </tr>
 						    </thead>
 						</table>
@@ -277,7 +277,7 @@
 							<select id="edit_category" data-width="100%" class="selectpicker" name="course_category">
 								<option value="MC">MC</option>
 								<option value="GE">GE</option>
-								<option value="MC For Others">MC For Others</option>
+								<option value="MC for Others">MC for Others</option>
 							</select>
 						</div>
 

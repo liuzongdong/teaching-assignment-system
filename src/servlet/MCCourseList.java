@@ -53,7 +53,7 @@ public class MCCourseList extends HttpServlet {
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("MC Wrong");
+			System.out.println(e);
 		}
 		finally 
 		{
@@ -73,7 +73,7 @@ public class MCCourseList extends HttpServlet {
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("MC Wrong");
+			System.out.println(e);
 		}
 		finally 
 		{

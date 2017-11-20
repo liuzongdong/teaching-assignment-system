@@ -172,6 +172,36 @@ public class Course
 	{
 		courseTAWorkload = newValue;
 	}
+	
+	public void SetCourseType(int type)
+	{
+		courseType = type;
+	}
+	
+	public int GetCourseType()
+	{
+		return courseType;
+	}
+	
+	public void SetCourseDuplication(int value)
+	{
+		courseIsDuplication = value;
+	}
+	
+	public int GetCourseDuplication()
+	{
+		return courseIsDuplication;
+	}
+	
+	public String GetDuplicateCode()
+	{
+		return courseDuplicateCode;
+	}
+	
+	public void SetCourseDuplicateCode(String code)
+	{
+		courseDuplicateCode = code;
+	}
 
 
 	/**

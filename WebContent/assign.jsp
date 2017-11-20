@@ -76,7 +76,7 @@
 					<div class="panel-heading">MC Course
 						<div style="float:right;">
 							<div style="float:right">
-							<label for="submitForm" class="btn btn-primary"> Submit </label>
+							<label for="submitForm" class="btn btn-default"> Assign </label>
 						</div>
 						</div>
 					</div>
@@ -84,13 +84,13 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
-							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
+							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="course">
 							
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
-							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="teacher">
+							<select id="teacher_list" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="teacher">
 
 							</select>
 						</div>
@@ -104,18 +104,38 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">GE Course
 						<div style="float:right;">
-							<button class="btn btn-primary" type="button" name="button">Submit</button>
+							<button class="btn btn-default" type="button" name="button"> Assign </button>
 						</div>
 					</div>
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
-							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6" name="course">
+							<select id="ge_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="course">
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
-							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="6"name="teacher">
+							<select id="teacher_list_1" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="teacher">
+
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">MC Course for Other Program
+						<div style="float:right;">
+							<button class="btn btn-primary" type="button" name="button"> Assign </button>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Please Choose Course:</label>
+							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="course">
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Please Choose Teacher:</label>
+							<select id="teacher_list_2" data-live-search="true" data-width="100%" class="selectpicker dropup" data-size="10"name="teacher">
 
 							</select>
 						</div>
@@ -126,11 +146,11 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Workload Table</div>
 						<div class="panel-body">
-							<table data-toggle="table" data-height="415" data-url="tables/data2.json" >
+							<table data-toggle="table" data-height="415" data-url="" >
 							    <thead>
 							    <tr>
-							        <th data-field="id" data-halign="center" data-align="center">Teacher Name</th>
-							        <th data-field="name" data-halign="center" data-align="center">WorkLoad</th>
+							        <th data-field="course_name" data-halign="center" data-align="center">Teacher Name</th>
+							        <th data-field="teacher_name" data-halign="center" data-align="center">WorkLoad</th>
 							    </tr>
 							    </thead>
 							</table>
@@ -153,30 +173,78 @@
 	<script>
 		window.onload = function() 
 		{
-			GetMCList();
+			UpdateList();
 		};
 	</script>
 
 	<script>
-		function GetMCList()
-		{
+		
+		function UpdateList() {
+			GetMCList();
+			setTimeout(function() {
+				GetGEList();
+				setTimeout(function() {
+					GetTeacherList();
+				}, 10);
+			}, 10);
+			
+		}
+		function GetMCList() {
 			$.ajax({
-				url: "MCCourseList",
-				type: 'GET',
-				success: function (response)
-				{
-					$('#mc_course').append(response);
+				url : "MCCourseList",
+				type : 'GET',
+				success : function(response) {
+					$('#mc_course').html(response);
 					$('.selectpicker').selectpicker('refresh');
 				},
-		error: function (xhr, ajaxOptions, thrownError)
-		{
-			alert("fail");
-		},
-		cache: false,
-		contentType: false,
-		processData: false
-	});
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert("fail");
+				},
+				cache : false,
+				contentType : false,
+				processData : false
+			});
 		}
+
+		function GetTeacherList() {
+			$.ajax({
+				url : "TeacherList",
+				type : 'GET',
+				success : function(response) {
+					$('#teacher_list, #teacher_list_1, #teacher_list_2')
+							.html(response);
+
+					$('.selectpicker').selectpicker('refresh');
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert("fail");
+				},
+				cache : false,
+				contentType : false,
+				processData : false
+			});
+		}
+
+		function GetGEList() {
+			$.ajax({
+				url : "GECourseList",
+				type : 'GET',
+				success : function(response) {
+					$('#ge_course').html(response);
+					$('.selectpicker').selectpicker('refresh');
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert("fail");
+				},
+				cache : false,
+				contentType : false,
+				processData : false
+			});
+		}
+	</script>
+	
+	<script>
+		
 	</script>
 	
 	<script>
@@ -198,12 +266,15 @@
 							swal("Done!", "Add Succeed", "success");
 								break;
 						case 'fail' :
-							swal("Add Failed!", "Please check your internet connection!", "error");
+							swal("Assign Failed!", "Please check your internet connection!", "error");
+								break;
+						case 'wrong' :
+							swal("Assign Failed!", "You can not assign this course!", "error");
 								break;
 
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
-					GetMCList();
+					UpdateList();
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{

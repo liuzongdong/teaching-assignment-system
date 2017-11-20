@@ -45,33 +45,38 @@ public class AssignCourse extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String teacher_id = request.getParameter("teacher");
 		String course_id = request.getParameter("course");
-		Course course = new Course();
-		course.InitCourse(Integer.parseInt(course_id));
-		if (Course.HasThisDuplicateCourse(Integer.parseInt(course_id), Integer.parseInt(teacher_id))) 
+		if (teacher_id == null || course_id == null) 
 		{
-			course.SetCourseTeacherWorkLoad(0.5);
+			out.append("wrong");
 		}
 		else
 		{
-			course.SetCourseTeacherWorkLoad(1.0);
-		}
-		if (course.AssginCourse(Integer.parseInt(teacher_id)))
-		{
-			if (course.AddTeacherWorkLoad(Integer.parseInt(teacher_id)) && course.SetAssigned()) 
+			Course course = new Course();
+			course.InitCourse(Integer.parseInt(course_id));
+			if (Course.HasThisDuplicateCourse(Integer.parseInt(course_id), Integer.parseInt(teacher_id))) 
 			{
-				out.append("success");
+				course.SetCourseTeacherWorkLoad(0.5);
 			}
 			else
+			{
+				course.SetCourseTeacherWorkLoad(1.0);
+			}
+			if (course.AssginCourse(Integer.parseInt(teacher_id)))
+			{
+				if (course.AddTeacherWorkLoad(Integer.parseInt(teacher_id)) && course.SetAssigned()) 
+				{
+					out.append("success");
+				}
+				else
+				{
+					out.append("fail");
+				}
+			}
+			else 
 			{
 				out.append("fail");
 			}
 		}
-		else 
-		{
-			out.append("fail");
-		}
-		
-		
 	}
 
 }
