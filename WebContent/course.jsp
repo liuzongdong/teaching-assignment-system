@@ -52,7 +52,7 @@
             <li class="active"><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
 			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Teacher</a></li>
 			<li role="presentation" class="divider"></li>
-
+			<li><a href="operation.jsp"><span class="glyphicon glyphicon-edit"></span> Operation </a></li>
 		</ul>
 
 	</div><!--/.sidebar-->

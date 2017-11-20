@@ -53,11 +53,8 @@
             <li class="active"><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
 			<li><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Teacher</a></li>
-
-
-
 			<li role="presentation" class="divider"></li>
-
+			<li><a href="operation.jsp"><span class="glyphicon glyphicon-edit"></span> Operation </a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
@@ -71,7 +68,7 @@
 		</div><!--/.row-->
 
 		<div style="padding-top:20px;"class="row">
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<div class="panel panel-default">
 					<div class="panel-heading">MC Course
 						<div style="float:right;">
@@ -142,15 +139,16 @@
 					</div>
 				</div>
 			</div>
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">Workload Table</div>
 						<div class="panel-body">
 							<table data-toggle="table" data-height="415" data-url="" >
 							    <thead>
 							    <tr>
-							        <th data-field="course_name" data-halign="center" data-align="center">Teacher Name</th>
-							        <th data-field="teacher_name" data-halign="center" data-align="center">WorkLoad</th>
+							        <th data-field="course_name" data-halign="center" data-align="center">Course Name</th>
+							        <th data-field="teacher_name" data-halign="center" data-align="center">Teacher Name</th>
+							        <th data-field="assign_operation" data-halign="center" data-align="center">Operation</th>
 							    </tr>
 							    </thead>
 							</table>

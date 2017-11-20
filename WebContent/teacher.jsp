@@ -50,9 +50,8 @@
 			<li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
             <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
 			<li class="active"><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Teacher</a></li>
-
 			<li role="presentation" class="divider"></li>
-
+			<li><a href="operation.jsp"><span class="glyphicon glyphicon-edit"></span> Operation </a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
