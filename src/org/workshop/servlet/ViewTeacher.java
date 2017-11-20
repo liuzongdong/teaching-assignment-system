@@ -1,29 +1,29 @@
-package servlet;
+package org.workshop.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import course.assign.Course;
+import org.workshop.core.Teacher;
+
+import com.google.gson.JsonArray;
 
 /**
- * Servlet implementation class AddITCourse
+ * Servlet implementation class ViewTeacher
  */
-@WebServlet("/AddITCourse")
-@MultipartConfig
-public class AddITCourse extends HttpServlet {
+@WebServlet("/ViewTeacher")
+public class ViewTeacher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddITCourse() {
+    public ViewTeacher() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,27 +33,21 @@ public class AddITCourse extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		Teacher teacher = new Teacher();
+		//Course course = new Course();
+		JsonArray array = teacher.ViewTeacher();
+		out = response.getWriter();
+		out.println(array);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		String number = request.getParameter("it_number");
-		Course.DeleteITCourse();
-		boolean status = Course.AddITCourse(Integer.parseInt(number));
-		if (status) 
-		{
-			out.append("success");
-		}
-		else
-		{
-			out.append("fail");
-		}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -1,32 +1,29 @@
-package servlet;
+package org.workshop.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import course.assign.Course;
+
+import org.workshop.core.Course;
 
 /**
- * Servlet implementation class EditCourse
+ * Servlet implementation class AddITCourse
  */
-@WebServlet("/EditCourse")
-/**
- * Add MultipartConfig announcement to fit HTML5 form data
- * @author liuzongdong
- *
- */
+@WebServlet("/AddITCourse")
 @MultipartConfig
-public class EditCourse extends HttpServlet {
+public class AddITCourse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditCourse() {
+    public AddITCourse() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,16 +39,14 @@ public class EditCourse extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		String course_id = request.getParameter("course_id");
-		String course_name = request.getParameter("course_name");
-        String course_category = request.getParameter("course_category");
-        String course_student = request.getParameter("course_student");
-        boolean status = Course.EditCourse(Integer.parseInt(course_id), course_name, course_category, course_student);
-        if (status) 
+		String number = request.getParameter("it_number");
+		Course.DeleteITCourse();
+		boolean status = Course.AddITCourse(Integer.parseInt(number));
+		if (status) 
 		{
 			out.append("success");
 		}

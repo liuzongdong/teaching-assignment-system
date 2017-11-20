@@ -1,11 +1,12 @@
-package course.assign;
+package org.workshop.core;
 
 import java.sql.*;
+
+import org.workshop.database.connect.SQLConnect;
+import org.workshop.other.RandomString;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import database.connect.SQLConnect;
-import other.RandomString;
 
 public class Course 
 {

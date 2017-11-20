@@ -1,4 +1,4 @@
-package database.connect;
+package org.workshop.database.connect;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

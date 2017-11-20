@@ -1,4 +1,4 @@
-package other;
+package org.workshop.other;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import course.assign.Course;
+import org.workshop.core.Course;
 
 public class ReadExcel 
 {

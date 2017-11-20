@@ -1,10 +1,10 @@
-package course.assign;
+package org.workshop.core;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import database.connect.SQLConnect;
+import org.workshop.database.connect.SQLConnect;
 
 public class LoginBean 
 {

@@ -1,4 +1,4 @@
-package servlet;
+package org.workshop.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,28 +12,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.connect.SQLConnect;
+import org.workshop.database.connect.SQLConnect;
 
 /**
- * Servlet implementation class GECourseList
+ * Servlet implementation class MCCourseList
  */
-@WebServlet("/GECourseList")
-public class GECourseList extends HttpServlet {
+@WebServlet("/MCCourseList")
+public class MCCourseList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GECourseList() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public MCCourseList() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String MCOutput = "";
@@ -41,7 +41,7 @@ public class GECourseList extends HttpServlet {
 		String output = "";
 		try 
 		{
-			String sql = "SELECT * FROM course WHERE course_category = 'GE' AND course_assigned = 0";
+			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 0";
 			PreparedStatement ps = null;
 			Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
@@ -61,7 +61,7 @@ public class GECourseList extends HttpServlet {
 		}
 		try 
 		{
-			String sql = "SELECT * FROM course WHERE course_category = 'GE' AND course_assigned = 1";
+			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1";
 			PreparedStatement ps = null;
 			Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);

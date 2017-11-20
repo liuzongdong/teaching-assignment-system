@@ -1,12 +1,3 @@
-<%
-    session = request.getSession(false);
-    if(session.getAttribute("pd") == null)
-    {
-        response.sendRedirect("login.jsp");
-    }
-
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +64,7 @@
 					<div class="panel-heading">MC Course
 						<div style="float:right;">
 							<div style="float:right">
-							<label for="submitForm" class="btn btn-default"> Assign </label>
+							<label for="submitForm" class="btn btn-primary"> Assign </label>
 						</div>
 						</div>
 					</div>
@@ -81,13 +72,13 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
-							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="course">
+							<select id="mc_course" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="course">
 							
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
-							<select id="teacher_list" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="teacher">
+							<select id="teacher_list" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="teacher">
 
 							</select>
 						</div>
@@ -101,21 +92,27 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">GE Course
 						<div style="float:right;">
-							<button class="btn btn-default" type="button" name="button"> Assign </button>
+							<label for="submitGEForm" class="btn btn-primary"> Assign </label>
 						</div>
 					</div>
 					<div class="panel-body">
+					<form id="data_ge">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
-							<select id="ge_course" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="course">
+							<select id="ge_course" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="course">
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
-							<select id="teacher_list_1" data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="teacher">
+							<select id="teacher_list_1" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="teacher">
 
 							</select>
 						</div>
+						<div class="form-group" style="text-align:center">
+                    			<button id="submitGEForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
+             
+                  		</div>
+					</form>
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -127,12 +124,12 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Please Choose Course:</label>
-							<select data-live-search="true" data-width="100%" class="selectpicker" data-size="10" name="course">
+							<select data-live-search="true" data-width="100%" class="selectpicker dropup show-tick" data-size="10" name="course">
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
-							<select id="teacher_list_2" data-live-search="true" data-width="100%" class="selectpicker dropup" data-size="10"name="teacher">
+							<select id="teacher_list_2" data-live-search="true" data-width="100%" class="selectpicker dropup show-tick" data-size="10"name="teacher">
 
 							</select>
 						</div>
@@ -143,7 +140,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Workload Table</div>
 						<div class="panel-body">
-							<table data-toggle="table" data-height="415" data-url="TestJson" >
+							<table id="table" data-toggle="table" data-height="680" data-url="TestJson" >
 							    <thead>
 							    <tr>
 							        <th data-field="course_name" data-halign="center" data-align="center">Course Name</th>
@@ -183,8 +180,8 @@
 				GetGEList();
 				setTimeout(function() {
 					GetTeacherList();
-				}, 10);
-			}, 10);
+				}, 50);
+			}, 50);
 			
 		}
 		function GetMCList() {
@@ -247,6 +244,48 @@
 	
 	<script>
 		$("form#data").submit(function(){
+			var formData = new FormData(this);
+			$.ajax({
+			url: "AssignCourse",
+			type: 'POST',
+			data: formData,
+			contentType: false,
+            cache: false,
+            processData:false,
+			success: function (response)
+			{
+				var answer = response;
+					switch ( answer )
+					{
+						case 'success' :
+							swal("Done!", "Add Succeed", "success");
+								break;
+						case 'fail' :
+							swal("Assign Failed!", "Please check your internet connection!", "error");
+								break;
+						case 'wrong' :
+							swal("Assign Failed!", "You can not assign this course!", "error");
+								break;
+
+					}
+					$('#table').bootstrapTable('refresh', {silent: true});
+					UpdateList();
+	},
+	error: function (xhr, ajaxOptions, thrownError)
+	{
+		alert("fail");
+	},
+	cache: false,
+	contentType: false,
+	processData: false
+});
+
+return false;
+});
+</script>
+
+	<script>
+		$("form#data_ge").submit(function(){
 			var formData = new FormData(this);
 			$.ajax({
 			url: "AssignCourse",

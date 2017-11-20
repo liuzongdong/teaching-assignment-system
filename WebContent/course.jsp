@@ -1,11 +1,3 @@
-<%
-    session = request.getSession(false);
-    if(session.getAttribute("pd") == null)
-    {
-        response.sendRedirect("login.jsp");
-    }
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +77,7 @@
 						        <th data-field="course_category"  data-halign="center" data-align="center" data-sortable="true">Course Category</th>
 						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Course Instructor</th>
 						        <th data-field="course_student" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
-						        <th data-field="ta_name" data-halign="center" data-align="center" data-sortable="true">Course TA</th>
+						     
 						    </tr>
 						    </thead>
 						</table>

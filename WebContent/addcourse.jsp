@@ -1,11 +1,3 @@
-<%
-    session = request.getSession(false);
-    if(session.getAttribute("pd") == null)
-    {
-        response.sendRedirect("login.jsp");
-    }
-
-%>
 <!DOCTYPE html>
 <html>
 <head>

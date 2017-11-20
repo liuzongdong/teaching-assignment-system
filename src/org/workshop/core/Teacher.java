@@ -1,12 +1,13 @@
-package course.assign;
+package org.workshop.core;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import org.workshop.database.connect.SQLConnect;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import database.connect.SQLConnect;
 
 public class Teacher 
 {

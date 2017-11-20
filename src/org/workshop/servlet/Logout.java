@@ -1,28 +1,24 @@
-package servlet;
+package org.workshop.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.JsonArray;
-
-import course.assign.Teacher;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ViewTeacher
+ * Servlet implementation class Logout
  */
-@WebServlet("/ViewTeacher")
-public class ViewTeacher extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewTeacher() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +28,10 @@ public class ViewTeacher extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/json; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		Teacher teacher = new Teacher();
-		//Course course = new Course();
-		JsonArray array = teacher.ViewTeacher();
-		out = response.getWriter();
-		out.println(array);
+		String returnPage = "login.jsp";
+		HttpSession session=request.getSession();  
+        session.invalidate();
+        response.sendRedirect(request.getContextPath() + "/" + returnPage);
 	}
 
 	/**

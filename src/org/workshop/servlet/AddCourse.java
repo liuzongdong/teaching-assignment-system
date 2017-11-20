@@ -1,4 +1,4 @@
-package servlet;
+package org.workshop.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,7 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import course.assign.Course;
+
+import org.workshop.core.Course;
 
 @WebServlet("/addcourse")
 /**

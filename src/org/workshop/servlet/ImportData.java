@@ -1,4 +1,4 @@
-package servlet;
+package org.workshop.servlet;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import other.ReadExcel;
+import org.workshop.other.ReadExcel;
 
 /**
  * Servlet implementation class ImportData

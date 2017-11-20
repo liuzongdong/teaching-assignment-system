@@ -1,4 +1,4 @@
-package other;
+package org.workshop.other;
 
 import java.util.Random;
 
