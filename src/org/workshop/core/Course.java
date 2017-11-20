@@ -450,6 +450,7 @@ public class Course
 				jsonobj.addProperty("course_category", rs.getString("course_category"));
 				jsonobj.addProperty("course_student", rs.getString("course_student"));
 				jsonobj.addProperty("operation", rs.getString("operation"));
+				jsonobj.addProperty("operation_id", rs.getInt("operation_id"));
 				jsonarray.add(jsonobj);
 			}
 		} 
@@ -605,6 +606,30 @@ public class Course
 		}
 	}
 	
+	public static boolean SetUnAssigned(int course_id)
+	{
+		boolean status = false;
+		try 
+		{
+			String sql = "UPDATE course SET course_assigned = 0 WHERE course_id = ?";
+			PreparedStatement ps = null;
+			Connection conn = SQLConnect.connetDB();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, course_id);
+			ps.executeUpdate();
+			status = true;
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return status;
+	}
+	
 	public boolean SetAssigned()
 	{
 		boolean status = false;
@@ -751,6 +776,78 @@ public class Course
 			newps.setInt(2, teacher_id);
 			newps.executeUpdate();
 			status = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return status;
+	}
+	
+	public static boolean UnlinkCourse(int operation_id)
+	{
+		boolean status = false;
+		try 
+		{
+			String sql = "DELETE FROM course_assign WHERE operation_id = ?";
+			PreparedStatement ps = null;
+			Connection conn = SQLConnect.connetDB();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, operation_id);
+			ps.executeUpdate();
+			status = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return status;
+	}
+	
+	public static boolean UnassignCourse(int operation_id)
+	{
+		boolean status = false;
+		try 
+		{
+			String sql = "SELECT * FROM course_assign WHERE operation_id = ?";
+			Double operation = 0.0;
+			int teacher_id = 0;
+			int course_id = 0;
+			PreparedStatement ps = null;
+			Connection conn = SQLConnect.connetDB();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, operation_id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				operation = rs.getDouble("operation");
+				teacher_id = rs.getInt("course_teacher_id");
+				course_id = rs.getInt("course_assign_id");
+			}
+			if (Course.UnlinkCourse(operation_id) && SetUnAssigned(course_id)) 
+			{
+				String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
+				PreparedStatement newps = null;
+				Connection newconn = SQLConnect.connetDB();
+				newps = newconn.prepareStatement(newsql);
+				newps.setDouble(1, Teacher.GetWorkload(teacher_id) - operation);
+				newps.setInt(2, teacher_id);
+				newps.executeUpdate();
+				status = true;
+			}
+			else
+			{
+				status = false;
+			}
+			
 		} 
 		catch (Exception e) 
 		{

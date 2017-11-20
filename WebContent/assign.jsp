@@ -143,6 +143,7 @@
 							<table id="table" data-toggle="table" data-height="680" data-url="TestJson" >
 							    <thead>
 							    <tr>
+							    	<th data-visible="false" data-field="operation_id" data-halign="center" data-align="center">operation_id</th>
 							        <th data-field="course_name" data-halign="center" data-align="center">Course Name</th>
 							        <th data-field="teacher_name" data-halign="center" data-align="center">Teacher Name</th>
 							        <th data-field="operation" data-halign="center" data-align="center">Operation</th>
@@ -153,6 +154,9 @@
 					</div>
 				</div>
 		</div><!--/.row-->
+		<ul id="context-menu" class="dropdown-menu">
+			<li data-item="unassign"><a>Unassign Course</a></li>
+		</ul>
 
 	</div>	<!--/.main-->
 
@@ -162,14 +166,79 @@
 	<script src="js/sweetalert.js"></script>
 	<script src="js/bootstrap-select.js"></script>
 	<script src="js/bootstrap-table.js"></script>
-	<script src="js/bootstrap-table-resizable.js"></script>
-	<script src="js/colResizable.js"></script>
+	<script src="js/bootstrap-table-contextmenu.js"></script>
 
 	<script>
 		window.onload = function() 
 		{
 			UpdateList();
 		};
+	</script>
+	
+	<script>
+	$('#table').bootstrapTable({
+	    contextMenu: '#context-menu',
+	    contextMenuAutoClickRow: true,
+	    onClickRow: function(row, $el){
+	       $('#table').find('.success').removeClass('success');
+	       $el.addClass('success');
+	    },
+	    onContextMenuItem: function(row, $el)
+	    {
+	        if($el.data("item") == "unassign")
+	        {
+	        	swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover it",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    closeModal: false,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete)
+                    {
+                    	var data = {
+                    		    operation_id: row.operation_id
+                    		};
+                    	$.ajax({
+                			url: "UnassignCourse",
+                			type: 'POST',
+                			contentType: "application/json",
+                			data: JSON.stringify(data),
+                			success: function (response)
+                			{
+                				var answer = response;
+                					switch ( answer )
+                					{
+                						case 'success' :
+                							swal("Done!", "Unassign Succeed", "success");
+                								break;
+                						case 'fail' :
+                							swal("Unassign Failed!", "Please check your internet connection!", "error");
+                								break;
+
+                					}
+                					$('#table').bootstrapTable('refresh', {silent: true});
+                					UpdateList();
+                	},
+                	error: function (xhr, ajaxOptions, thrownError)
+                	{
+                		swal("Delete Failed!", "Please check your internet connection!", "error");
+                	},
+                	cache: false,
+                	contentType: false,
+                	processData: false
+                });
+                    }
+                    else
+                    {
+                        return;
+                    }
+                        });
+	        }
+	    }
+	});
 	</script>
 
 	<script>
@@ -180,8 +249,8 @@
 				GetGEList();
 				setTimeout(function() {
 					GetTeacherList();
-				}, 50);
-			}, 50);
+				}, 100);
+			}, 100);
 			
 		}
 		function GetMCList() {
@@ -269,7 +338,9 @@
 
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
-					UpdateList();
+					setTimeout(function() {
+						UpdateList();
+					}, 100);
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{
@@ -311,7 +382,9 @@ return false;
 
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
-					UpdateList();
+					setTimeout(function() {
+						UpdateList();
+					}, 100);
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{

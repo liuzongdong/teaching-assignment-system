@@ -56,6 +56,33 @@ public class Teacher
 		return hasITCourseStatus;
 	}
 	
+	public static Double GetWorkload(int teacher_id)
+	{
+		Double workload = 0.0;
+		try 
+		{
+			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
+			PreparedStatement ps = null;
+			Connection conn = SQLConnect.connetDB();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, teacher_id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				workload = rs.getDouble("teacher_workload");
+			}
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			SQLConnect.closeDB();
+		}
+		return workload;
+	}
+	
 	public boolean AddTeacher()
 	{
 		boolean status = false;
