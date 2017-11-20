@@ -42,20 +42,7 @@
 
   For Mac users: macOS doesn't need to donwload or install this software.
 
-### Initializing a Repository in an Existing Directory (You don't need to do this).
-
-  If you have a project directory that is currently not under version control and you want to start controlling it with Git.
-
-  1. open git-cmd.exe / bit-bash.exe
-  2. go to that project’s directory, and type:
-
-  `git init`
-
-  For example: 
-  
-  `C:\Users\xxx\Desktop\Y3\workshop2> git init`
-
-### Cloning an Existing Repository (This is what you need to do).
+### Cloning an Existing Repository
   If you want to get a copy of an existing Git repository – for example,
   a project you’d like to contribute to – the command you need is
 
