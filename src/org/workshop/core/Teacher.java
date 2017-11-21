@@ -59,11 +59,13 @@ public class Teacher
 	public static Double GetWorkload(int teacher_id)
 	{
 		Double workload = 0.0;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacher_id);
 			ResultSet rs = ps.executeQuery();
@@ -78,7 +80,7 @@ public class Teacher
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return workload;
 	}
@@ -86,11 +88,13 @@ public class Teacher
 	public boolean AddTeacher()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "INSERT INTO teacher (teacher_name) VALUES(?)";
 			PreparedStatement ps = null;
-	        Connection conn = SQLConnect.connetDB();
+	        //Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, teacherName);
 	        ps.executeUpdate();
@@ -102,7 +106,7 @@ public class Teacher
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -113,11 +117,13 @@ public class Teacher
 	 */
 	public void InitTeacher(int teacher_id)
 	{
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM teacher WHERE teacher_id = ?";
 			PreparedStatement ps = null;
-	        Connection conn = SQLConnect.connetDB();
+	        //Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, teacher_id);
 	        ResultSet rs = ps.executeQuery();
@@ -134,7 +140,7 @@ public class Teacher
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 	}
 
@@ -142,11 +148,13 @@ public class Teacher
 	public boolean HasITCourse()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM course_assign, course, teacher WHERE course_assign_id = course_id AND teacher_id = ? AND course_type = 1";
 			PreparedStatement ps = null;
-	        Connection conn = SQLConnect.connetDB();
+	        //Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, teacherID);
 	        ResultSet rs = ps.executeQuery();
@@ -162,7 +170,7 @@ public class Teacher
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -170,11 +178,13 @@ public class Teacher
 	public JsonArray ViewTeacher()
 	{
 		JsonArray array = new JsonArray();
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "select * from teacher";
 			PreparedStatement ps = null;
-	        Connection conn = SQLConnect.connetDB();
+	        //Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
 	        ResultSet rs = ps.executeQuery();
 	        while(rs.next())
@@ -192,7 +202,7 @@ public class Teacher
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return array;
 	}

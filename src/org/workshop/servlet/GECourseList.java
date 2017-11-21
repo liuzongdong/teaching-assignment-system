@@ -39,11 +39,13 @@ public class GECourseList extends HttpServlet {
 		String MCOutput = "";
 		String UnMCOuput = "";
 		String output = "";
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM course WHERE course_category = 'GE' AND course_assigned = 0";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -55,15 +57,11 @@ public class GECourseList extends HttpServlet {
 		{
 			System.out.println(e);
 		}
-		finally 
-		{
-			SQLConnect.closeDB();
-		}
 		try 
 		{
 			String sql = "SELECT * FROM course WHERE course_category = 'GE' AND course_assigned = 1";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -77,7 +75,7 @@ public class GECourseList extends HttpServlet {
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		
 		output = "<optgroup label=\"Unassigned Course\">\n" + MCOutput + "</optgroup>" + "<optgroup label=\"Assigned Course\" disabled>" + UnMCOuput + "</optgroup>";

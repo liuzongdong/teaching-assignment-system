@@ -11,9 +11,9 @@ public class SQLConnect
     public static final String DBUSER = "root";
     public static final String DBPASS = "";
 
-    static Connection conn;
+    private Connection conn;
     
-    public static Connection connetDB()
+    public Connection connetDB()
     {
         try 
         {
@@ -36,7 +36,7 @@ public class SQLConnect
         return conn;
 
     }
-    public static void closeDB() {
+    public void closeDB() {
         try 
         {
             conn.close();

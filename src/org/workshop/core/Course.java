@@ -218,11 +218,13 @@ public class Course
 	public static String GetDuplicateCode(int id)
 	{
 		String code = "";
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT course_duplicate_code FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -237,7 +239,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return code;
 	}
@@ -245,11 +247,13 @@ public class Course
 	public static boolean HasThisDuplicateCourse(int cid, int tid)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT course_assign_id FROM course_assign WHERE course_teacher_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, tid);
 			ResultSet rs = ps.executeQuery();
@@ -267,7 +271,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -280,11 +284,13 @@ public class Course
 	public boolean AddCourse()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate_code) VALUES(?, ?, ?, ?)";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, courseName);
 			ps.setString(2, courseCategory);
@@ -299,7 +305,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -312,13 +318,15 @@ public class Course
 	public static boolean AddITCourse(int number)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			for (int i = 1; i <= number; i++)
 			{
 				String sql = "INSERT INTO course (course_name, course_category, course_student, course_type) VALUES(?, ?, ?, ?)";
 				PreparedStatement ps = null;
-				Connection conn = SQLConnect.connetDB();
+				////Connection conn = SQLConnect.connetDB();
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, "IT Course (" + i + ")");
 				ps.setString(2, "GE");
@@ -334,7 +342,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -346,12 +354,14 @@ public class Course
 	public static boolean DeleteITCourse()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 
 			String sql = "DELETE FROM course WHERE course_type = 1";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.executeUpdate();
 			status = true;
@@ -362,7 +372,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -375,12 +385,14 @@ public class Course
 	public static boolean DeleteCourse(int id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 
 			String sql = "DELETE FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -392,7 +404,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -400,12 +412,14 @@ public class Course
 	public static boolean EditCourse(int id, String name, String category, String student)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 
 			String sql = "UPDATE course SET course_name = ?, course_category = ?, course_student = ? WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, category);
@@ -420,7 +434,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -434,11 +448,13 @@ public class Course
 	public JsonArray ViewCourse()
 	{
 		JsonArray jsonarray = new JsonArray();
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "select * from course, teacher, course_assign WHERE course.course_id = course_assign.course_assign_id AND teacher.teacher_id = course_assign.course_teacher_id";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -460,7 +476,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return jsonarray;
 	}
@@ -474,11 +490,13 @@ public class Course
 	public JsonArray ViewBasicCourse()
 	{
 		JsonArray jsonarray = new JsonArray();
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "select * from course";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -499,7 +517,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return jsonarray;
 	}
@@ -512,11 +530,13 @@ public class Course
 	public static boolean IsDuplicate(int course_id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM course_assign WHERE course_assign_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ResultSet rs = ps.executeQuery();
@@ -532,7 +552,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -546,11 +566,13 @@ public class Course
 	public boolean IsDuplicate()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM course_assign WHERE course_assign_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ResultSet rs = ps.executeQuery();
@@ -566,7 +588,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -578,11 +600,12 @@ public class Course
 	 */
 	public void InitCourse(int course_id)
 	{
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ResultSet rs = ps.executeQuery();
@@ -602,18 +625,20 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 	}
 	
 	public static boolean SetUnAssigned(int course_id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "UPDATE course SET course_assigned = 0 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ps.executeUpdate();
@@ -625,7 +650,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -633,11 +658,13 @@ public class Course
 	public boolean SetAssigned()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "UPDATE course SET course_assigned = 1 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.executeUpdate();
@@ -649,7 +676,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -657,11 +684,13 @@ public class Course
 	public static boolean SetDuplication(int id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "UPDATE course SET course_duplicate = 1, course_teacher_workload = 0.5 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -673,7 +702,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -686,6 +715,8 @@ public class Course
 	public static boolean AddSection(int number, String name, String category, String student)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		
 		try 
 		{
 			String randomString = RandomString.getSaltString();
@@ -693,7 +724,8 @@ public class Course
 			{
 				String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate, course_duplicate_code, course_teacher_workload) VALUES(?, ?, ?, ?, ?, ?)";
 				PreparedStatement ps = null;
-				Connection conn = SQLConnect.connetDB();
+				Connection conn = connection.connetDB();
+				////Connection conn = SQLConnect.connetDB();
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, name + " (" + i + ")");
 				ps.setString(2, category);
@@ -711,7 +743,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -724,11 +756,13 @@ public class Course
 	public boolean AssginCourse(int teacher_id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "INSERT INTO course_assign (course_assign_id, course_teacher_id, operation) VALUES(?, ?, ?)";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.setInt(2, teacher_id);
@@ -742,7 +776,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -755,12 +789,16 @@ public class Course
 	public boolean AddTeacherWorkLoad(int teacher_id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		SQLConnect newconnection = new SQLConnect();
+		Connection newconn = newconnection.connetDB();
 		try 
 		{
 			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
 			Double workload = 0.0;
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacher_id);
 			ResultSet rs = ps.executeQuery();
@@ -770,7 +808,7 @@ public class Course
 			}
 			String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
 			PreparedStatement newps = null;
-			Connection newconn = SQLConnect.connetDB();
+			
 			newps = newconn.prepareStatement(newsql);
 			newps.setDouble(1, workload + courseTeacherWorkload);
 			newps.setInt(2, teacher_id);
@@ -783,7 +821,8 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
+			newconnection.closeDB();
 		}
 		return status;
 	}
@@ -791,11 +830,13 @@ public class Course
 	public static boolean UnlinkCourse(int operation_id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "DELETE FROM course_assign WHERE operation_id = ?";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			////Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, operation_id);
 			ps.executeUpdate();
@@ -807,7 +848,7 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
@@ -815,6 +856,10 @@ public class Course
 	public static boolean UnassignCourse(int operation_id)
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		SQLConnect newconnection = new SQLConnect();
+		Connection newconn = newconnection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM course_assign WHERE operation_id = ?";
@@ -822,7 +867,7 @@ public class Course
 			int teacher_id = 0;
 			int course_id = 0;
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, operation_id);
 			ResultSet rs = ps.executeQuery();
@@ -836,7 +881,8 @@ public class Course
 			{
 				String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
 				PreparedStatement newps = null;
-				Connection newconn = SQLConnect.connetDB();
+				
+				//Connection newconn = SQLConnect.connetDB();
 				newps = newconn.prepareStatement(newsql);
 				newps.setDouble(1, Teacher.GetWorkload(teacher_id) - operation);
 				newps.setInt(2, teacher_id);
@@ -855,7 +901,8 @@ public class Course
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
+			newconnection.closeDB();
 		}
 		return status;
 	}

@@ -224,7 +224,6 @@
                 	},
                 	error: function (xhr, ajaxOptions, thrownError)
                 	{
-                		swal("Delete Failed!", "Please check your internet connection!", "error");
                 	},
                 	cache: false,
                 	contentType: false,
@@ -243,14 +242,11 @@
 
 	<script>
 		
-		function UpdateList() {
+		function UpdateList() 
+		{
 			GetMCList();
-			setTimeout(function() {
-				GetGEList();
-				setTimeout(function() {
-					GetTeacherList();
-				}, 100);
-			}, 100);
+			GetGEList();
+			GetTeacherList();
 			
 		}
 		function GetMCList() {
@@ -262,7 +258,6 @@
 					$('.selectpicker').selectpicker('refresh');
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
-					alert("fail");
 				},
 				cache : false,
 				contentType : false,
@@ -281,7 +276,6 @@
 					$('.selectpicker').selectpicker('refresh');
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
-					alert("fail");
 				},
 				cache : false,
 				contentType : false,
@@ -298,7 +292,6 @@
 					$('.selectpicker').selectpicker('refresh');
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
-					alert("fail");
 				},
 				cache : false,
 				contentType : false,
@@ -338,13 +331,10 @@
 
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
-					setTimeout(function() {
-						UpdateList();
-					}, 100);
+					UpdateList();
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{
-		alert("fail");
 	},
 	cache: false,
 	contentType: false,
@@ -382,13 +372,10 @@ return false;
 
 					}
 					$('#table').bootstrapTable('refresh', {silent: true});
-					setTimeout(function() {
-						UpdateList();
-					}, 100);
+					UpdateList();
 	},
 	error: function (xhr, ajaxOptions, thrownError)
 	{
-		alert("fail");
 	},
 	cache: false,
 	contentType: false,

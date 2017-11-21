@@ -39,11 +39,13 @@ public class TeacherList extends HttpServlet {
 		String TeacherOutput = "";
 		String OverTeacherOuput = "";
 		String output = "";
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "SELECT * FROM teacher WHERE teacher_workload < 3";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -55,15 +57,11 @@ public class TeacherList extends HttpServlet {
 		{
 			System.out.println(e);
 		}
-		finally 
-		{
-			SQLConnect.closeDB();
-		}
 		try 
 		{
 			String sql = "SELECT * FROM teacher WHERE teacher_workload >= 3";
 			PreparedStatement ps = null;
-			Connection conn = SQLConnect.connetDB();
+			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -77,7 +75,7 @@ public class TeacherList extends HttpServlet {
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		
 		output = "<optgroup label=\"Workload less than 3.0\">\n" + TeacherOutput + "</optgroup>" + "<optgroup label=\"Workload more than 3.0\">" + OverTeacherOuput + "</optgroup>";

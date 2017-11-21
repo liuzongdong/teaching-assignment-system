@@ -34,11 +34,13 @@ public class LoginBean
 	public boolean validate()
 	{
 		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
 		try 
 		{
 			String sql = "select * from user where username = ? and password = ?";
 			PreparedStatement ps = null;
-	        Connection conn = SQLConnect.connetDB();
+	        //Connection conn = SQLConnect.connetDB();
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, username);
 	        ps.setString(2, password);
@@ -51,7 +53,7 @@ public class LoginBean
 		}
 		finally 
 		{
-			SQLConnect.closeDB();
+			connection.closeDB();
 		}
 		return status;
 	}
