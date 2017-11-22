@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.workshop.database.connect.SQLConnect;
+import org.workshop.database.SQLConnect;
 
 /**
  * Servlet implementation class MCCourseList

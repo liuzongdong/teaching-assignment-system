@@ -2,7 +2,7 @@ package org.workshop.core;
 
 import java.sql.*;
 
-import org.workshop.database.connect.SQLConnect;
+import org.workshop.database.SQLConnect;
 import org.workshop.other.RandomString;
 
 import com.google.gson.JsonArray;
@@ -224,7 +224,7 @@ public class Course
 		{
 			String sql = "SELECT course_duplicate_code FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -253,7 +253,7 @@ public class Course
 		{
 			String sql = "SELECT course_assign_id FROM course_assign WHERE course_teacher_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, tid);
 			ResultSet rs = ps.executeQuery();
@@ -290,7 +290,7 @@ public class Course
 		{
 			String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate_code) VALUES(?, ?, ?, ?)";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, courseName);
 			ps.setString(2, courseCategory);
@@ -326,7 +326,6 @@ public class Course
 			{
 				String sql = "INSERT INTO course (course_name, course_category, course_student, course_type) VALUES(?, ?, ?, ?)";
 				PreparedStatement ps = null;
-				////Connection conn = SQLConnect.connetDB();
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, "IT Course (" + i + ")");
 				ps.setString(2, "GE");
@@ -361,7 +360,7 @@ public class Course
 
 			String sql = "DELETE FROM course WHERE course_type = 1";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.executeUpdate();
 			status = true;
@@ -392,7 +391,7 @@ public class Course
 
 			String sql = "DELETE FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -419,7 +418,7 @@ public class Course
 
 			String sql = "UPDATE course SET course_name = ?, course_category = ?, course_student = ? WHERE course_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, category);
@@ -454,7 +453,7 @@ public class Course
 		{
 			String sql = "select * from course, teacher, course_assign WHERE course.course_id = course_assign.course_assign_id AND teacher.teacher_id = course_assign.course_teacher_id";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -496,7 +495,7 @@ public class Course
 		{
 			String sql = "select * from course";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -536,7 +535,7 @@ public class Course
 		{
 			String sql = "SELECT * FROM course_assign WHERE course_assign_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ResultSet rs = ps.executeQuery();
@@ -572,7 +571,7 @@ public class Course
 		{
 			String sql = "SELECT * FROM course_assign WHERE course_assign_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ResultSet rs = ps.executeQuery();
@@ -638,7 +637,7 @@ public class Course
 		{
 			String sql = "UPDATE course SET course_assigned = 0 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ps.executeUpdate();
@@ -664,7 +663,7 @@ public class Course
 		{
 			String sql = "UPDATE course SET course_assigned = 1 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.executeUpdate();
@@ -690,7 +689,7 @@ public class Course
 		{
 			String sql = "UPDATE course SET course_duplicate = 1, course_teacher_workload = 0.5 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -725,7 +724,7 @@ public class Course
 				String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate, course_duplicate_code, course_teacher_workload) VALUES(?, ?, ?, ?, ?, ?)";
 				PreparedStatement ps = null;
 				Connection conn = connection.connetDB();
-				////Connection conn = SQLConnect.connetDB();
+				
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, name + " (" + i + ")");
 				ps.setString(2, category);
@@ -762,7 +761,7 @@ public class Course
 		{
 			String sql = "INSERT INTO course_assign (course_assign_id, course_teacher_id, operation) VALUES(?, ?, ?)";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.setInt(2, teacher_id);
@@ -798,7 +797,7 @@ public class Course
 			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
 			Double workload = 0.0;
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacher_id);
 			ResultSet rs = ps.executeQuery();
@@ -836,7 +835,7 @@ public class Course
 		{
 			String sql = "DELETE FROM course_assign WHERE operation_id = ?";
 			PreparedStatement ps = null;
-			////Connection conn = SQLConnect.connetDB();
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, operation_id);
 			ps.executeUpdate();
@@ -867,7 +866,6 @@ public class Course
 			int teacher_id = 0;
 			int course_id = 0;
 			PreparedStatement ps = null;
-			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, operation_id);
 			ResultSet rs = ps.executeQuery();

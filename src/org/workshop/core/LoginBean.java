@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.workshop.database.connect.SQLConnect;
+import org.workshop.database.SQLConnect;
 
 public class LoginBean 
 {

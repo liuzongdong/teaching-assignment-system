@@ -1,4 +1,4 @@
-package org.workshop.database.connect;
+package org.workshop.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,6 @@ public class SQLConnect
     public static final String DBURL = "jdbc:mysql://localhost:3306/tas";
     public static final String DBUSER = "root";
     public static final String DBPASS = "";
-
     private Connection conn;
     
     public Connection connetDB()
