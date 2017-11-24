@@ -18,12 +18,12 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public LoginFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor. 
+	 */
+	public LoginFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -38,21 +38,21 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException 
 	{
 		HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
-        HttpSession session = request.getSession(false);
-        String loginURI = request.getContextPath() + "/Login";
-        String path = request.getRequestURI();
-        boolean loggedIn = session != null && session.getAttribute("username") != null;
-        boolean loginRequest = request.getRequestURI().equals(loginURI);
+		HttpServletResponse response = (HttpServletResponse) res;
+		HttpSession session = request.getSession(false);
+		String loginURI = request.getContextPath() + "/Login";
+		String path = request.getRequestURI();
+		boolean loggedIn = session != null && session.getAttribute("username") != null;
+		boolean loginRequest = request.getRequestURI().equals(loginURI);
 
-        if (loggedIn || loginRequest || path.endsWith("css") || path.endsWith("js")) 
-        {
-            chain.doFilter(request, response);
-        } 
-        else 
-        {
-            response.sendRedirect(loginURI);
-        }
+		if (loggedIn || loginRequest || path.endsWith("css") || path.endsWith("js")) 
+		{
+			chain.doFilter(request, response);
+		} 
+		else 
+		{
+			response.sendRedirect(loginURI);
+		}
 	}
 
 	/**

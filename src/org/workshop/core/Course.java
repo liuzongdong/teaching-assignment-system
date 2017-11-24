@@ -173,32 +173,32 @@ public class Course
 	{
 		courseTAWorkload = newValue;
 	}
-	
+
 	public void SetCourseType(int type)
 	{
 		courseType = type;
 	}
-	
+
 	public int GetCourseType()
 	{
 		return courseType;
 	}
-	
+
 	public void SetCourseDuplication(int value)
 	{
 		courseIsDuplication = value;
 	}
-	
+
 	public int GetCourseDuplication()
 	{
 		return courseIsDuplication;
 	}
-	
+
 	public String GetDuplicateCode()
 	{
 		return courseDuplicateCode;
 	}
-	
+
 	public void SetCourseDuplicateCode(String code)
 	{
 		courseDuplicateCode = code;
@@ -224,7 +224,7 @@ public class Course
 		{
 			String sql = "SELECT course_duplicate_code FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -253,7 +253,7 @@ public class Course
 		{
 			String sql = "SELECT course_assign_id FROM course_assign WHERE course_teacher_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, tid);
 			ResultSet rs = ps.executeQuery();
@@ -290,7 +290,7 @@ public class Course
 		{
 			String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate_code) VALUES(?, ?, ?, ?)";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, courseName);
 			ps.setString(2, courseCategory);
@@ -360,7 +360,7 @@ public class Course
 
 			String sql = "DELETE FROM course WHERE course_type = 1";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.executeUpdate();
 			status = true;
@@ -391,7 +391,7 @@ public class Course
 
 			String sql = "DELETE FROM course WHERE course_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -418,7 +418,7 @@ public class Course
 
 			String sql = "UPDATE course SET course_name = ?, course_category = ?, course_student = ? WHERE course_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, category);
@@ -453,7 +453,7 @@ public class Course
 		{
 			String sql = "select * from course, teacher, course_assign WHERE course.course_id = course_assign.course_assign_id AND teacher.teacher_id = course_assign.course_teacher_id";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -495,7 +495,7 @@ public class Course
 		{
 			String sql = "select * from course";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
@@ -535,7 +535,7 @@ public class Course
 		{
 			String sql = "SELECT * FROM course_assign WHERE course_assign_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ResultSet rs = ps.executeQuery();
@@ -571,7 +571,7 @@ public class Course
 		{
 			String sql = "SELECT * FROM course_assign WHERE course_assign_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ResultSet rs = ps.executeQuery();
@@ -627,7 +627,7 @@ public class Course
 			connection.closeDB();
 		}
 	}
-	
+
 	public static boolean SetUnAssigned(int course_id)
 	{
 		boolean status = false;
@@ -637,7 +637,7 @@ public class Course
 		{
 			String sql = "UPDATE course SET course_assigned = 0 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, course_id);
 			ps.executeUpdate();
@@ -653,7 +653,7 @@ public class Course
 		}
 		return status;
 	}
-	
+
 	public boolean SetAssigned()
 	{
 		boolean status = false;
@@ -663,7 +663,7 @@ public class Course
 		{
 			String sql = "UPDATE course SET course_assigned = 1 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.executeUpdate();
@@ -689,7 +689,7 @@ public class Course
 		{
 			String sql = "UPDATE course SET course_duplicate = 1, course_teacher_workload = 0.5 WHERE course_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -715,7 +715,7 @@ public class Course
 	{
 		boolean status = false;
 		SQLConnect connection = new SQLConnect();
-		
+
 		try 
 		{
 			String randomString = RandomString.getSaltString();
@@ -724,7 +724,7 @@ public class Course
 				String sql = "INSERT INTO course (course_name, course_category, course_student, course_duplicate, course_duplicate_code, course_teacher_workload) VALUES(?, ?, ?, ?, ?, ?)";
 				PreparedStatement ps = null;
 				Connection conn = connection.connetDB();
-				
+
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, name + " (" + i + ")");
 				ps.setString(2, category);
@@ -761,7 +761,7 @@ public class Course
 		{
 			String sql = "INSERT INTO course_assign (course_assign_id, course_teacher_id, operation) VALUES(?, ?, ?)";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.setInt(2, teacher_id);
@@ -797,7 +797,7 @@ public class Course
 			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
 			Double workload = 0.0;
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacher_id);
 			ResultSet rs = ps.executeQuery();
@@ -807,7 +807,7 @@ public class Course
 			}
 			String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
 			PreparedStatement newps = null;
-			
+
 			newps = newconn.prepareStatement(newsql);
 			newps.setDouble(1, workload + courseTeacherWorkload);
 			newps.setInt(2, teacher_id);
@@ -825,7 +825,7 @@ public class Course
 		}
 		return status;
 	}
-	
+
 	public static boolean UnlinkCourse(int operation_id)
 	{
 		boolean status = false;
@@ -835,7 +835,7 @@ public class Course
 		{
 			String sql = "DELETE FROM course_assign WHERE operation_id = ?";
 			PreparedStatement ps = null;
-			
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, operation_id);
 			ps.executeUpdate();
@@ -851,7 +851,7 @@ public class Course
 		}
 		return status;
 	}
-	
+
 	public static boolean UnassignCourse(int operation_id)
 	{
 		boolean status = false;
@@ -879,7 +879,7 @@ public class Course
 			{
 				String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
 				PreparedStatement newps = null;
-				
+
 				//Connection newconn = SQLConnect.connetDB();
 				newps = newconn.prepareStatement(newsql);
 				newps.setDouble(1, Teacher.GetWorkload(teacher_id) - operation);
@@ -891,7 +891,7 @@ public class Course
 			{
 				status = false;
 			}
-			
+
 		} 
 		catch (Exception e) 
 		{

@@ -20,13 +20,13 @@ import org.workshop.core.Course;
 @MultipartConfig
 public class AddCourse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public AddCourse() 
-    {
-        super();
 
-    }
+	public AddCourse() 
+	{
+		super();
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
@@ -39,41 +39,41 @@ public class AddCourse extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		int course_section = Integer.parseInt(request.getParameter("course_section"));
 		String course_name = request.getParameter("course_name");
-        String course_category = request.getParameter("course_category");
-        String course_student = request.getParameter("course_student");
-        if (course_section == 1) 
-        {
-        	Course course = new Course();
-    		course.SetCourseName(course_name);
-    		course.SetCourseCategory(course_category);
-    		course.SetCourseStudent(course_student);
-    		boolean status = course.AddCourse();
-    		if (status) 
-    		{
-    			//ReadExcel.ReadExcelFile();
-    			out.append("success");
-    		}
-    		else
-    		{
-    			out.append("fail");
-    		}
+		String course_category = request.getParameter("course_category");
+		String course_student = request.getParameter("course_student");
+		if (course_section == 1) 
+		{
+			Course course = new Course();
+			course.SetCourseName(course_name);
+			course.SetCourseCategory(course_category);
+			course.SetCourseStudent(course_student);
+			boolean status = course.AddCourse();
+			if (status) 
+			{
+				//ReadExcel.ReadExcelFile();
+				out.append("success");
+			}
+			else
+			{
+				out.append("fail");
+			}
 		}
-        else if (course_section > 1) 
-        {
-    		boolean status = Course.AddSection(course_section, course_name, course_category, course_student);
-    		if (status) 
-    		{
-    			//ReadExcel.ReadExcelFile();
-    			out.append("success");
-    		}
-    		else
-    		{
-    			out.append("fail");
-    		}
+		else if (course_section > 1) 
+		{
+			boolean status = Course.AddSection(course_section, course_name, course_category, course_student);
+			if (status) 
+			{
+				//ReadExcel.ReadExcelFile();
+				out.append("success");
+			}
+			else
+			{
+				out.append("fail");
+			}
 		}
-		
-		
-		
+
+
+
 	}
 
 }

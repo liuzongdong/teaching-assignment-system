@@ -23,14 +23,14 @@ import org.workshop.core.Course;
 @MultipartConfig
 public class EditCourse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditCourse() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditCourse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -49,10 +49,10 @@ public class EditCourse extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String course_id = request.getParameter("course_id");
 		String course_name = request.getParameter("course_name");
-        String course_category = request.getParameter("course_category");
-        String course_student = request.getParameter("course_student");
-        boolean status = Course.EditCourse(Integer.parseInt(course_id), course_name, course_category, course_student);
-        if (status) 
+		String course_category = request.getParameter("course_category");
+		String course_student = request.getParameter("course_student");
+		boolean status = Course.EditCourse(Integer.parseInt(course_id), course_name, course_category, course_student);
+		if (status) 
 		{
 			out.append("success");
 		}

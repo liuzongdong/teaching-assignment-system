@@ -7,42 +7,42 @@ import java.sql.SQLException;
 public class SQLConnect 
 {
 	public static final String DBDRIVER = "com.mysql.jdbc.Driver";
-    public static final String DBURL = "jdbc:mysql://localhost:3306/tas";
-    public static final String DBUSER = "root";
-    public static final String DBPASS = "";
-    private Connection conn;
-    
-    public Connection connetDB()
-    {
-        try 
-        {
-            Class.forName(DBDRIVER);
-        } 
-        catch (ClassNotFoundException e) 
-        {
-            e.printStackTrace();
-        }
+	public static final String DBURL = "jdbc:mysql://localhost:3306/tas";
+	public static final String DBUSER = "root";
+	public static final String DBPASS = "";
+	private Connection conn;
 
-        try 
-        {
-        	conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
-        } 
-        catch (SQLException e) 
-        {
-            return null;
-        }
+	public Connection connetDB()
+	{
+		try 
+		{
+			Class.forName(DBDRIVER);
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
 
-        return conn;
+		try 
+		{
+			conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
+		} 
+		catch (SQLException e) 
+		{
+			return null;
+		}
 
-    }
-    public void closeDB() {
-        try 
-        {
-            conn.close();
-        } 
-        catch (SQLException e) 
-        {
-            e.printStackTrace();
-        }
-    }
+		return conn;
+
+	}
+	public void closeDB() {
+		try 
+		{
+			conn.close();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }

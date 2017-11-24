@@ -20,14 +20,14 @@ import org.workshop.database.SQLConnect;
 @WebServlet("/GECourseList")
 public class GECourseList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GECourseList() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GECourseList() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -77,7 +77,7 @@ public class GECourseList extends HttpServlet {
 		{
 			connection.closeDB();
 		}
-		
+
 		output = "<optgroup label=\"Unassigned Course\">\n" + MCOutput + "</optgroup>" + "<optgroup label=\"Assigned Course\" disabled>" + UnMCOuput + "</optgroup>";
 		out.append(output);
 	}

@@ -20,21 +20,21 @@ import org.workshop.core.Course;
 @MultipartConfig
 public class AddSection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddSection() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AddSection() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -47,11 +47,11 @@ public class AddSection extends HttpServlet {
 		String course_number = request.getParameter("add_course_number");
 		String course_id = request.getParameter("add_course_id");
 		String course_name = request.getParameter("add_course_name");
-        String course_category = request.getParameter("add_course_category");
-        String course_student = request.getParameter("add_course_student");
-        //Status = false;
-        if (Course.AddSection(Integer.parseInt(course_number), course_name, course_category, course_student)) 
-        {
+		String course_category = request.getParameter("add_course_category");
+		String course_student = request.getParameter("add_course_student");
+		//Status = false;
+		if (Course.AddSection(Integer.parseInt(course_number), course_name, course_category, course_student)) 
+		{
 			if (Course.DeleteCourse(Integer.parseInt(course_id))) 
 			{
 				out.append("success");
@@ -61,11 +61,11 @@ public class AddSection extends HttpServlet {
 				out.append("fail");
 			}
 		}
-        else
-        {
-        		out.append("fail");
-        }
-        
+		else
+		{
+			out.append("fail");
+		}
+
 	}
 
 }
