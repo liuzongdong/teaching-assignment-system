@@ -329,7 +329,7 @@ public class Course
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, "IT Course (" + i + ")");
 				ps.setString(2, "GE");
-				ps.setString(3, "All Student");
+				ps.setString(3, "All Students");
 				ps.setString(4, "1");
 				ps.executeUpdate();
 			}
