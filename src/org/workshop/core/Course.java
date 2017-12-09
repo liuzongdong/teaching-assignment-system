@@ -322,15 +322,17 @@ public class Course
 		Connection conn = connection.connetDB();
 		try 
 		{
+			String salt = RandomString.getSaltString();
 			for (int i = 1; i <= number; i++)
 			{
-				String sql = "INSERT INTO course (course_name, course_category, course_student, course_type) VALUES(?, ?, ?, ?)";
+				String sql = "INSERT INTO course (course_name, course_category, course_duplicate_code, course_student, course_type) VALUES(?, ?, ?, ?, ?)";
 				PreparedStatement ps = null;
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, "IT Course (" + i + ")");
 				ps.setString(2, "GE");
-				ps.setString(3, "All Students");
-				ps.setString(4, "1");
+				ps.setString(3, salt);
+				ps.setString(4, "All Students");
+				ps.setString(5, "1");
 				ps.executeUpdate();
 			}
 			status = true;
@@ -879,8 +881,6 @@ public class Course
 			{
 				String newsql = "UPDATE teacher SET teacher_workload = ? WHERE teacher_id = ?";
 				PreparedStatement newps = null;
-
-				//Connection newconn = SQLConnect.connetDB();
 				newps = newconn.prepareStatement(newsql);
 				newps.setDouble(1, Teacher.GetWorkload(teacher_id) - operation);
 				newps.setInt(2, teacher_id);

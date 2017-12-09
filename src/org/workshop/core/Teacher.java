@@ -14,7 +14,6 @@ public class Teacher
 	private int teacherID;
 	private String teacherName;
 	private Double teacherWorkaLoad;
-	private boolean hasITCourseStatus;
 
 	public void SetID(int value)
 	{
@@ -44,16 +43,6 @@ public class Teacher
 	public void SetWorkLoad(Double value)
 	{
 		teacherWorkaLoad = value;
-	}
-
-	public void SetHasITCourseStatus(boolean status)
-	{
-		hasITCourseStatus = status;
-	}
-
-	public boolean GetHasITCourseStatus()
-	{
-		return hasITCourseStatus;
 	}
 
 	public static Double GetWorkload(int teacher_id)
@@ -110,6 +99,31 @@ public class Teacher
 		}
 		return status;
 	}
+	
+	public boolean AddTA()
+	{
+		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "INSERT INTO ta (ta_name) VALUES(?)";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, teacherName);
+			ps.executeUpdate();
+			status = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return status;
+	}
 
 	/**
 	 * Init a teacher from databases.
@@ -123,7 +137,6 @@ public class Teacher
 		{
 			String sql = "SELECT * FROM teacher WHERE teacher_id = ?";
 			PreparedStatement ps = null;
-			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacher_id);
 			ResultSet rs = ps.executeQuery();
@@ -131,7 +144,6 @@ public class Teacher
 			{
 				teacherName = rs.getString("teacher_name");
 				teacherWorkaLoad = rs.getDouble("teacher_workload");
-				hasITCourseStatus = rs.getBoolean("teacher_has_it");
 			}
 		} 
 		catch (Exception e) 
@@ -154,7 +166,6 @@ public class Teacher
 		{
 			String sql = "SELECT * FROM course_assign, course, teacher WHERE course_assign_id = course_id AND teacher_id = ? AND course_type = 1";
 			PreparedStatement ps = null;
-			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacherID);
 			ResultSet rs = ps.executeQuery();
@@ -193,6 +204,37 @@ public class Teacher
 				object.addProperty("teacher_id", rs.getString("teacher_id"));
 				object.addProperty("teacher_name", rs.getString("teacher_name"));
 				object.addProperty("teacher_workload", rs.getString("teacher_workload"));
+				array.add(object);
+			}
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return array;
+	}
+	
+	public JsonArray ViewTA()
+	{
+		JsonArray array = new JsonArray();
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "select * from ta";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				JsonObject object = new JsonObject();
+				object.addProperty("ta_id", rs.getString("ta_id"));
+				object.addProperty("ta_name", rs.getString("ta_name"));
+				object.addProperty("ta_workload", rs.getString("ta_workload"));
 				array.add(object);
 			}
 		}

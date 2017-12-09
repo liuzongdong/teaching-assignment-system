@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.workshop.database.SQLConnect;
 
 /**
- * Servlet implementation class TeacherList
+ * Servlet implementation class TAMCCourse
  */
-@WebServlet("/TeacherList")
-public class TeacherList extends HttpServlet {
+@WebServlet("/TAMCCourse")
+public class TAMCCourseList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TeacherList() {
+    public TAMCCourseList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,21 +36,20 @@ public class TeacherList extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		String TeacherOutput = "";
-		String OverTeacherOuput = "";
+		String MCOutput = "";
+		String UnMCOuput = "";
 		String output = "";
 		SQLConnect connection = new SQLConnect();
 		Connection conn = connection.connetDB();
 		try 
 		{
-			String sql = "SELECT * FROM teacher WHERE teacher_workload < 3";
+			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1 AND course_has_ta = 0";
 			PreparedStatement ps = null;
-			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				TeacherOutput += "<option data-subtext=\"" + rs.getString("teacher_workload") + "\" value='" + rs.getInt("teacher_id") + "'>" + rs.getString("teacher_name") + "</option>\n";
+				MCOutput += "<option value='" + rs.getInt("course_id") + "'>" + rs.getString("course_name") + "</option>\n";
 			}
 		} 
 		catch (Exception e) 
@@ -59,14 +58,14 @@ public class TeacherList extends HttpServlet {
 		}
 		try 
 		{
-			String sql = "SELECT * FROM teacher WHERE teacher_workload >= 3";
+			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1 AND course_has_ta = 1";
 			PreparedStatement ps = null;
 			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				OverTeacherOuput += "<option data-subtext=\"" + rs.getString("teacher_workload") + "\" value='" + rs.getInt("teacher_id") + "'>" + rs.getString("teacher_name") + "</option>\n";
+				UnMCOuput += "<option value='" + rs.getInt("course_id") + "'>" + rs.getString("course_name") + "</option>\n";
 			}
 		} 
 		catch (Exception e) 
@@ -78,7 +77,7 @@ public class TeacherList extends HttpServlet {
 			connection.closeDB();
 		}
 		
-		output = "<optgroup label=\"Workload less than 3.0\">\n" + TeacherOutput + "</optgroup>" + "<optgroup label=\"Workload more than 3.0\">" + OverTeacherOuput + "</optgroup>";
+		output = "<optgroup label=\"Unassigned Course\">\n" + MCOutput + "</optgroup>" + "<optgroup label=\"Assigned Course\" disabled>" + UnMCOuput + "</optgroup>";
 		out.append(output);
 	}
 

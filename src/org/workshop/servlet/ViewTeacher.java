@@ -36,7 +36,6 @@ public class ViewTeacher extends HttpServlet {
 		response.setContentType("text/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		Teacher teacher = new Teacher();
-		//Course course = new Course();
 		JsonArray array = teacher.ViewTeacher();
 		out = response.getWriter();
 		out.println(array);

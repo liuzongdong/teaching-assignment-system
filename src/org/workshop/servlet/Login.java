@@ -35,10 +35,20 @@ public class Login extends HttpServlet {
         boolean status = bean.validate();
         if (status) 
         {
-        	HttpSession session = request.getSession();
-        	session.setAttribute("pd", true);
-            session.setAttribute("username", bean.getUsername());
-        	returnPage = "index.jsp";
+        	if (bean.isPD() == 1) 
+        	{
+        		HttpSession session = request.getSession();
+            	session.setAttribute("pd", true);
+                session.setAttribute("username", bean.getUsername());
+            	returnPage = "index.jsp";
+			}
+        	else
+        	{
+        		HttpSession session = request.getSession();
+            	session.setAttribute("ta", true);
+                session.setAttribute("username", bean.getUsername());
+            	returnPage = "ta.jsp";
+        	}
 		}
         else
         {

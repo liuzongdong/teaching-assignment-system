@@ -37,11 +37,9 @@
 
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<ul class="nav menu">
-			<li><a href="index.jsp"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-			<li><a href="addcourse.jsp"><span class="glyphicon glyphicon-th"></span> Add Course</a></li>
-			<li><a href="assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign Course</a></li>
-            <li><a href="course.jsp"><span class="glyphicon glyphicon-tasks"></span> View Course</a></li>
-			<li class="active"><a href="teacher.jsp"><span class="glyphicon glyphicon-list-alt"></span> Teacher</a></li>
+			<li><a href="ta.jsp"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+			<li><a href="ta_assign.jsp"><span class="glyphicon glyphicon-stats"></span> Assign TA Course</a></li>
+			<li class="active"><a href="add_ta.jsp"><span class="glyphicon glyphicon-list-alt"></span> TA</a></li>
 			<li role="presentation" class="divider"></li>
 			<li><a href="operation.jsp"><span class="glyphicon glyphicon-edit"></span> Operation </a></li>
 		</ul>
@@ -52,7 +50,7 @@
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-				<li class="active">Tables</li>
+				<li class="active">TA</li>
 			</ol>
 		</div><!--/.row-->
 
@@ -61,15 +59,15 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Teachers
 					<div style="float:right">
-							<button class="btn btn-primary" data-toggle="modal" data-target="#newTeacher">Add Teacher</button>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#newTeacher">Add TA</button>
 						</div>
 					</div>
 					<div class="panel-body">
-						<table id="table" data-toggle="table" data-url="ViewTeacher"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
+						<table id="table" data-toggle="table" data-url="ViewTA"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-order="desc">
 						    <thead>
 						    <tr>
-						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Teacher Name</th>
-						        <th data-field="teacher_workload" data-halign="center" data-align="center" data-sortable="true">Teacher WorkLoad</th>
+						        <th data-field="ta_name"  data-halign="center" data-align="center" data-sortable="true">TA Name</th>
+						        <th data-field="ta_workload" data-halign="center" data-align="center" data-sortable="true">TA Workload</th>
 						    </tr>
 						    </thead>
 						</table>
@@ -124,7 +122,7 @@
 		$("form#editdata").submit(function(){
 			var formData = new FormData(this);
 			$.ajax({
-			url: "AddTeacher",
+			url: "AddTA",
 			type: 'POST',
 			data: formData,
 			contentType: false,
