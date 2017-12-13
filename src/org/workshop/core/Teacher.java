@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.workshop.database.SQLConnect;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -54,7 +53,6 @@ public class Teacher
 		{
 			String sql = "SELECT teacher_workload FROM teacher WHERE teacher_id = ?";
 			PreparedStatement ps = null;
-			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, teacher_id);
 			ResultSet rs = ps.executeQuery();
@@ -83,7 +81,6 @@ public class Teacher
 		{
 			String sql = "INSERT INTO teacher (teacher_name) VALUES(?)";
 			PreparedStatement ps = null;
-			//Connection conn = SQLConnect.connetDB();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, teacherName);
 			ps.executeUpdate();
@@ -248,5 +245,74 @@ public class Teacher
 		}
 		return array;
 	}
+	
+	public static boolean CheckTimeCrash(String ta_id, String day, String from, String to)
+	{
+		boolean status = true;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "SELECT * FROM course_ta_assign WHERE course_ta_id = ?";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, ta_id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				if (!rs.getString("day").equals(day)) 
+				{
+					status = false;
+				}
+				else 
+				{
+					if (Integer.parseInt(rs.getString("time_from")) > Integer.parseInt(to) || Integer.parseInt(rs.getString("time_to")) < Integer.parseInt(from)) 
+					{
+						status = false;
+					}
+				}
+			}
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return status;
+	}
+	
+	public static boolean AssignTACourse(String course_id, String ta_id, String plain_time, String day, String from, String to)
+	{
+		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "INSERT INTO course_ta_assign (course_ta_assign_id, course_ta_id, plain_time, day, time_from, time_to) VALUES(?, ?, ?, ?, ?, ?)";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, course_id);
+			ps.setString(2, ta_id);
+			ps.setString(3, plain_time);
+			ps.setString(4, day);
+			ps.setString(5, from);
+			ps.setString(6, to);
+			ps.executeUpdate();
+			status = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return status;
+	}
+	
 
 }

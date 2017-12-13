@@ -9,6 +9,7 @@
 <link href="css/bootstrap-table.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet">
 <link href="css/bootstrap-select.css" rel="stylesheet">
+<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
 
 </head>
 
@@ -74,13 +75,44 @@
 							
 							</select>
 						</div>
+						
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
 							<select multiple id="teacher_list" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="teacher">
 
 							</select>
 						</div>
-						<div class="form-group" style="text-align:center">
+						
+						<div class="form-group">
+							<label>Please Choose Week of day:</label>
+							<select name="day" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="day">
+								<option value="Monday">Monday</option>
+								<option value="Tuesday">Tuesday</option>
+								<option value="Wednesday">Wednesday</option>
+								<option value="Thursday">Thursday</option>
+								<option value="Friday">Friday</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Please Choose Course Time:</label>
+							<div class='input-group date' id='datetimepicker1'>
+								<input name="from" readonly type='text' class="form-control" /> <span
+									class="input-group-addon"> <span
+									class="glyphicon glyphicon-time"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>To:</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input name="to" readonly type='text' class="form-control" /> <span
+									class="input-group-addon"> <span
+									class="glyphicon glyphicon-time"></span>
+								</span>
+							</div>
+						</div>
+							
+							<div class="form-group" style="text-align:center">
                     			<button id="submitForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
                     			<button id="resetForm" type="reset" class="btn btn-default hidden">Reset Button</button>
                   		</div>
@@ -165,6 +197,30 @@
 	<script src="js/bootstrap-select.js"></script>
 	<script src="js/bootstrap-table.js"></script>
 	<script src="js/bootstrap-table-contextmenu.js"></script>
+	<script src="js/moment.js"></script>
+	<script src="js/bootstrap-datetimepicker.js"></script>
+	
+	<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker(
+        		{
+        			format: 'HH:mm',
+                	ignoreReadonly: true
+                });
+        $('#datetimepicker2').datetimepicker({
+        	format: 'HH:mm',
+        	ignoreReadonly: true,
+        	useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker1").on("dp.change", function (e) {
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker2").on("dp.change", function (e) {
+            $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+
 
 	<script>
 		window.onload = function() 
@@ -306,7 +362,7 @@
 		$("form#data").submit(function(){
 			var formData = new FormData(this);
 			$.ajax({
-			url: "AssignCourse",
+			url: "AssignTA",
 			type: 'POST',
 			data: formData,
 			contentType: false,

@@ -681,6 +681,32 @@ public class Course
 		}
 		return status;
 	}
+	
+	public static boolean SetHasTA(String course_id)
+	{
+		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "UPDATE course SET course_has_ta = 1 WHERE course_id = ?";
+			PreparedStatement ps = null;
+
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, course_id);
+			ps.executeUpdate();
+			status = true;
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return status;
+	}
 
 	public static boolean SetDuplication(int id)
 	{
@@ -763,7 +789,6 @@ public class Course
 		{
 			String sql = "INSERT INTO course_assign (course_assign_id, course_teacher_id, operation) VALUES(?, ?, ?)";
 			PreparedStatement ps = null;
-
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, courseID);
 			ps.setInt(2, teacher_id);
