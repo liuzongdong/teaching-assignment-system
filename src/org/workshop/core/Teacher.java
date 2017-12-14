@@ -248,7 +248,7 @@ public class Teacher
 	
 	public static boolean CheckTimeCrash(String ta_id, String day, String from, String to)
 	{
-		boolean status = true;
+		boolean status = false;
 		SQLConnect connection = new SQLConnect();
 		Connection conn = connection.connetDB();
 		try 
@@ -260,16 +260,9 @@ public class Teacher
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				if (!rs.getString("day").equals(day)) 
+				if (rs.getString("day").equals(day) && (((Integer.parseInt(rs.getString("time_from")) >= Integer.parseInt(from)) && (Integer.parseInt(to) >= Integer.parseInt(rs.getString("time_to"))) ) || (Integer.parseInt(rs.getString("time_from")) <= Integer.parseInt(from) && Integer.parseInt(rs.getString("time_to")) >= Integer.parseInt(from)) || ((Integer.parseInt(to) <= Integer.parseInt(rs.getString("time_to")) && (Integer.parseInt(to) >= Integer.parseInt(rs.getString("time_from"))))))) 
 				{
-					status = false;
-				}
-				else 
-				{
-					if (Integer.parseInt(rs.getString("time_from")) > Integer.parseInt(to) || Integer.parseInt(rs.getString("time_to")) < Integer.parseInt(from)) 
-					{
-						status = false;
-					}
+					status = true;
 				}
 			}
 		} 
@@ -313,6 +306,7 @@ public class Teacher
 		}
 		return status;
 	}
+
 	
 
 }

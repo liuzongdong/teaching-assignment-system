@@ -1,6 +1,8 @@
 package org.workshop.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.workshop.core.Course;
 import org.workshop.core.Teacher;
 
 /**
@@ -39,6 +42,8 @@ public class AssignTA extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		String ta_id[] = request.getParameterValues("teacher");
 		String course_id = request.getParameter("course");
 		String day = request.getParameter("day");
@@ -71,6 +76,35 @@ public class AssignTA extends HttpServlet {
 		{
 			System.out.println(Teacher.CheckTimeCrash(ta_id[i], day, CodedTimeFrom, CodedTimeTo));
 		}
+//		boolean checkCrash = false;
+//		for (int i = 0; i < ta_id.length; i++)
+//		{
+//			if (Teacher.CheckTimeCrash(ta_id[i], day, CodedTimeFrom, CodedTimeTo)) 
+//			{
+//				checkCrash = true;
+//			}
+//		}
+//		if (!checkCrash) 
+//		{
+//			for (int i = 0; i < ta_id.length; i++)
+//			{
+//				if (Teacher.AssignTACourse(course_id, ta_id[i], PlainTime, day, CodedTimeFrom, CodedTimeTo)) 
+//				{
+//					if (Course.AddTAWorkLoad(ta_id[i]) && Course.SetHasTA(course_id)) 
+//					{
+//						out.append("success");
+//					}
+//				}
+//				else
+//				{
+//					out.append("fail");
+//				}
+//			}
+//		}
+//		else
+//		{
+//			out.append("crashed");
+//		}
 	}
 
 }

@@ -379,6 +379,9 @@
 						case 'fail' :
 							swal("Assign Failed!", "Please check your internet connection!", "error");
 								break;
+						case 'crashed' :
+							swal("Assign Failed!", "Time crashed!!", "error");
+								break;
 						case 'wrong' :
 							swal("Assign Failed!", "You can not assign this course!", "error");
 								break;

@@ -852,6 +852,47 @@ public class Course
 		}
 		return status;
 	}
+	
+	public static boolean AddTAWorkLoad(String ta_id)
+	{
+		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		SQLConnect newconnection = new SQLConnect();
+		Connection newconn = newconnection.connetDB();
+		try 
+		{
+			String sql = "SELECT ta_workload FROM ta WHERE ta_id = ?";
+			Double workload = 0.0;
+			PreparedStatement ps = null;
+
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, ta_id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				workload = rs.getDouble("ta_workload");
+			}
+			String newsql = "UPDATE ta SET ta_workload = ? WHERE ta_id = ?";
+			PreparedStatement newps = null;
+			newps = newconn.prepareStatement(newsql);
+			newps.setDouble(1, workload + 1);
+			newps.setString(2, ta_id);
+			newps.executeUpdate();
+			status = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+			newconnection.closeDB();
+		}
+		return status;
+	}
+	
 
 	public static boolean UnlinkCourse(int operation_id)
 	{
