@@ -152,6 +152,34 @@ public class Teacher
 			connection.closeDB();
 		}
 	}
+	
+	public static String GetTAName(String id)
+	{
+		String name = "";
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "SELECT ta_name FROM ta WHERE ta_id = ?";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				name = rs.getString("ta_name");
+			}
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return name;
+	}
 
 
 	public boolean HasITCourse()
@@ -215,6 +243,37 @@ public class Teacher
 		return array;
 	}
 	
+	public JsonArray ViewTAAssign()
+	{
+		JsonArray array = new JsonArray();
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "SELECT * FROM course";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				JsonObject object = new JsonObject();
+				object.addProperty("course_name", rs.getString("course_name"));
+				object.addProperty("course_ta", rs.getString("course_ta"));
+				object.addProperty("course_time", rs.getString("course_time"));
+				array.add(object);
+			}
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return array;
+	}
+	
 	public JsonArray ViewTA()
 	{
 		JsonArray array = new JsonArray();
@@ -222,7 +281,7 @@ public class Teacher
 		Connection conn = connection.connetDB();
 		try 
 		{
-			String sql = "select * from ta";
+			String sql = "SELECT * FROM ta";
 			PreparedStatement ps = null;
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

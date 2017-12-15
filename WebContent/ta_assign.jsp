@@ -60,7 +60,7 @@
 		<div style="padding-top:20px;"class="row">
 			<div class="col-md-5">
 				<div class="panel panel-default">
-					<div class="panel-heading">MC Course
+					<div class="panel-heading">Course
 						<div style="float:right;">
 							<div style="float:right">
 							<label for="submitForm" class="btn btn-primary"> Assign </label>
@@ -78,7 +78,7 @@
 						
 						<div class="form-group">
 							<label>Please Choose Teacher:</label>
-							<select multiple id="teacher_list" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="teacher">
+							<select required multiple id="teacher_list" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="teacher">
 
 							</select>
 						</div>
@@ -119,64 +119,18 @@
 					</div>
 					</form>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">GE Course
-						<div style="float:right;">
-							<label for="submitGEForm" class="btn btn-primary"> Assign </label>
-						</div>
-					</div>
-					<div class="panel-body">
-					<form id="data_ge">
-						<div class="form-group">
-							<label>Please Choose Course:</label>
-							<select id="ge_course" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="course">
-							</select>
-						</div>
-						<div class="form-group">
-							<label>Please Choose Teacher:</label>
-							<select multiple id="teacher_list_1" data-live-search="true" data-width="100%" class="selectpicker show-tick" data-size="10" name="teacher">
 
-							</select>
-						</div>
-						<div class="form-group" style="text-align:center">
-                    			<button id="submitGEForm" type="submit" class="btn btn-primary hidden">Submit Button</button>
-             
-                  		</div>
-					</form>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">MC Course for Other Program
-						<div style="float:right;">
-							<button class="btn btn-primary" type="button" name="button"> Assign </button>
-						</div>
-					</div>
-					<div class="panel-body">
-						<div class="form-group">
-							<label>Please Choose Course:</label>
-							<select data-live-search="true" data-width="100%" class="selectpicker dropup show-tick" data-size="10" name="course">
-							</select>
-						</div>
-						<div class="form-group">
-							<label>Please Choose Teacher:</label>
-							<select multiple id="teacher_list_2" data-live-search="true" data-width="100%" class="selectpicker dropup show-tick" data-size="10"name="teacher">
-
-							</select>
-						</div>
-					</div>
-				</div>
 			</div>
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">Workload Table</div>
 						<div class="panel-body">
-							<table id="table" data-toggle="table" data-height="680" data-url="TestJson" >
+							<table id="table" data-toggle="table" data-height="370" data-url="ViewTAAssign" >
 							    <thead>
 							    <tr>
-							    	<th data-visible="false" data-field="operation_id" data-halign="center" data-align="center">operation_id</th>
 							        <th data-field="course_name" data-halign="center" data-align="center">Course Name</th>
-							        <th data-field="teacher_name" data-halign="center" data-align="center">Teacher Name</th>
-							        <th data-field="operation" data-halign="center" data-align="center">Operation</th>
+							        <th data-field="course_ta" data-halign="center" data-align="center">Course TA</th>
+							        <th data-field="course_time" data-halign="center" data-align="center">Course Time</th>
 							    </tr>
 							    </thead>
 							</table>
@@ -184,9 +138,6 @@
 					</div>
 				</div>
 		</div><!--/.row-->
-		<ul id="context-menu" class="dropdown-menu">
-			<li data-item="unassign"><a>Unassign Course</a></li>
-		</ul>
 
 	</div>	<!--/.main-->
 
@@ -210,7 +161,7 @@
         $('#datetimepicker2').datetimepicker({
         	format: 'HH:mm',
         	ignoreReadonly: true,
-        	useCurrent: false //Important! See issue #1075
+        	useCurrent: false 
         });
         $("#datetimepicker1").on("dp.change", function (e) {
             $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
@@ -228,78 +179,12 @@
 			UpdateList();
 		};
 	</script>
-	
-	<script>
-	$('#table').bootstrapTable({
-	    contextMenu: '#context-menu',
-	    contextMenuAutoClickRow: true,
-	    onClickRow: function(row, $el){
-	       $('#table').find('.success').removeClass('success');
-	       $el.addClass('success');
-	    },
-	    onContextMenuItem: function(row, $el)
-	    {
-	        if($el.data("item") == "unassign")
-	        {
-	        	swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover it",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                    closeModal: false,
-                    })
-                    .then((willDelete) => {
-                    if (willDelete)
-                    {
-                    	var data = {
-                    		    operation_id: row.operation_id
-                    		};
-                    	$.ajax({
-                			url: "UnassignCourse",
-                			type: 'POST',
-                			contentType: "application/json",
-                			data: JSON.stringify(data),
-                			success: function (response)
-                			{
-                				var answer = response;
-                					switch ( answer )
-                					{
-                						case 'success' :
-                							swal("Done!", "Unassign Succeed", "success");
-                								break;
-                						case 'fail' :
-                							swal("Unassign Failed!", "Please check your internet connection!", "error");
-                								break;
-
-                					}
-                					$('#table').bootstrapTable('refresh', {silent: true});
-                					UpdateList();
-                	},
-                	error: function (xhr, ajaxOptions, thrownError)
-                	{
-                	},
-                	cache: false,
-                	contentType: false,
-                	processData: false
-                });
-                    }
-                    else
-                    {
-                        return;
-                    }
-                        });
-	        }
-	    }
-	});
-	</script>
 
 	<script>
 		
 		function UpdateList() 
 		{
 			GetMCList();
-			GetGEList();
 			GetTeacherList();
 			
 		}
@@ -337,21 +222,6 @@
 			});
 		}
 
-		function GetGEList() {
-			$.ajax({
-				url : "GECourseList",
-				type : 'GET',
-				success : function(response) {
-					$('#ge_course').html(response);
-					$('.selectpicker').selectpicker('refresh');
-				},
-				error : function(xhr, ajaxOptions, thrownError) {
-				},
-				cache : false,
-				contentType : false,
-				processData : false
-			});
-		}
 	</script>
 	
 	<script>
@@ -402,46 +272,7 @@ return false;
 });
 </script>
 
-	<script>
-		$("form#data_ge").submit(function(){
-			var formData = new FormData(this);
-			$.ajax({
-			url: "AssignCourse",
-			type: 'POST',
-			data: formData,
-			contentType: false,
-            cache: false,
-            processData:false,
-			success: function (response)
-			{
-				var answer = response;
-					switch ( answer )
-					{
-						case 'success' :
-							swal("Done!", "Add Succeed", "success");
-								break;
-						case 'fail' :
-							swal("Assign Failed!", "Please check your internet connection!", "error");
-								break;
-						case 'wrong' :
-							swal("Assign Failed!", "You can not assign this course!", "error");
-								break;
 
-					}
-					$('#table').bootstrapTable('refresh', {silent: true});
-					UpdateList();
-	},
-	error: function (xhr, ajaxOptions, thrownError)
-	{
-	},
-	cache: false,
-	contentType: false,
-	processData: false
-});
-
-return false;
-});
-</script>
 </body>
 
 </html>

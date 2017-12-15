@@ -43,7 +43,7 @@ public class TAMCCourseList extends HttpServlet {
 		Connection conn = connection.connetDB();
 		try 
 		{
-			String sql = "SELECT * FROM course WHERE course_category = 'MC' AND course_assigned = 1 AND course_has_ta = 0";
+			String sql = "SELECT * FROM course WHERE course_assigned = 1 AND course_has_ta = 0";
 			PreparedStatement ps = null;
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

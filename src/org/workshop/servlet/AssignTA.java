@@ -42,6 +42,8 @@ public class AssignTA extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String name = "";
+		String result = "";
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String ta_id[] = request.getParameterValues("teacher");
@@ -72,39 +74,47 @@ public class AssignTA extends HttpServlet {
 		}
 		String CodedTimeFrom = from.replaceAll("[:]", "");
 		String CodedTimeTo = to.replaceAll("[:]", "");
-		for (int i = 0; i < ta_id.length; i++)
-		{
-			System.out.println(Teacher.CheckTimeCrash(ta_id[i], day, CodedTimeFrom, CodedTimeTo));
-		}
-//		boolean checkCrash = false;
 //		for (int i = 0; i < ta_id.length; i++)
 //		{
-//			if (Teacher.CheckTimeCrash(ta_id[i], day, CodedTimeFrom, CodedTimeTo)) 
-//			{
-//				checkCrash = true;
-//			}
+//			System.out.println(Teacher.CheckTimeCrash(ta_id[i], day, CodedTimeFrom, CodedTimeTo));
 //		}
-//		if (!checkCrash) 
-//		{
-//			for (int i = 0; i < ta_id.length; i++)
-//			{
-//				if (Teacher.AssignTACourse(course_id, ta_id[i], PlainTime, day, CodedTimeFrom, CodedTimeTo)) 
-//				{
-//					if (Course.AddTAWorkLoad(ta_id[i]) && Course.SetHasTA(course_id)) 
-//					{
-//						out.append("success");
-//					}
-//				}
-//				else
-//				{
-//					out.append("fail");
-//				}
-//			}
-//		}
-//		else
-//		{
-//			out.append("crashed");
-//		}
+		boolean checkCrash = false;
+		for (int i = 0; i < ta_id.length; i++)
+		{
+			if (Teacher.CheckTimeCrash(ta_id[i], day, CodedTimeFrom, CodedTimeTo)) 
+			{
+				checkCrash = true;
+			}
+		}
+		if (!checkCrash) 
+		{
+			for (int i = 0; i < ta_id.length; i++)
+			{
+				name = name + Teacher.GetTAName(ta_id[i]) + " ";
+				if (Teacher.AssignTACourse(course_id, ta_id[i], PlainTime, day, CodedTimeFrom, CodedTimeTo)) 
+				{
+					if (Course.AddTAWorkLoad(ta_id[i]) && Course.SetHasTA(course_id)) 
+					{
+						result = "success";
+					}
+				}
+				else
+				{
+					result = "fail";
+				}
+			}
+		}
+		else
+		{
+			result = "crashed";
+		}
+		if (Course.UpdateTA(course_id, PlainTime, name)) 
+		{
+			out.append(result);
+		}
+		else
+		{
+			out.append("fail");
+		}
 	}
-
 }

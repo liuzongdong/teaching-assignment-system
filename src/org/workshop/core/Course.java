@@ -655,6 +655,33 @@ public class Course
 		}
 		return status;
 	}
+	
+	public static boolean UpdateTA(String course_id, String time, String name)
+	{
+		boolean status = false;
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "UPDATE course SET course_ta = ?, course_time = ? WHERE course_id = ?";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			ps.setString(2, time);
+			ps.setString(3, course_id);
+			ps.executeUpdate();
+			status = true;
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return status;
+	}
 
 	public boolean SetAssigned()
 	{
