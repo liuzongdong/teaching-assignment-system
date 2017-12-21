@@ -67,12 +67,12 @@
 						    <thead>
 						    <tr>
 								<th data-visible="false"data-field="course_id" data-halign="center" data-align="center" data-sortable="true">Course ID</th>
-						        <th data-field="course_name" data-halign="center" data-align="center" data-sortable="true">Course Name</th>
-						        <th data-field="course_category"  data-halign="center" data-align="center" data-sortable="true">Course Category</th>
-						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Course Instructor</th>
-						        <th data-field="course_student" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
-						     	<th data-field="course_time" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
-						     	<th data-field="course_ta" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
+						        <th data-field="course_name" data-halign="center" data-align="center" data-falign="center" data-valign="middle" data-sortable="true">Name</th>
+						        <th data-field="course_category"  data-halign="center" data-align="center"data-falign="center" data-valign="middle" data-sortable="true">Category</th>
+						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-falign="center" data-valign="middle"  data-sortable="true">Instructor</th>
+						        <th data-field="course_student" data-halign="center" data-align="center" data-falign="center" data-valign="middle"  data-sortable="true">Student</th>
+						     	<th data-field="course_time" data-halign="center" data-align="center" data-falign="center" data-valign="middle"  data-sortable="true">Time</th>
+						     	<th data-field="course_ta" data-halign="center" data-align="center" data-falign="center" data-valign="middle"  data-sortable="true">TA</th>
 						    </tr>
 						    </thead>
 						</table>
