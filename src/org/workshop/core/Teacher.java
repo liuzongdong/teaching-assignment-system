@@ -243,6 +243,36 @@ public class Teacher
 		return array;
 	}
 	
+	public JsonArray DashboardData()
+	{
+		JsonArray array = new JsonArray();
+		SQLConnect connection = new SQLConnect();
+		Connection conn = connection.connetDB();
+		try 
+		{
+			String sql = "SELECT * FROM teacher";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				JsonObject object = new JsonObject();
+				object.addProperty("teacher_name", rs.getString("teacher_name"));
+				object.addProperty("teacher_workload", rs.getString("teacher_workload"));
+				array.add(object);
+			}
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		finally 
+		{
+			connection.closeDB();
+		}
+		return array;
+	}
+	
 	public JsonArray ViewTAAssign()
 	{
 		JsonArray array = new JsonArray();
@@ -250,7 +280,7 @@ public class Teacher
 		Connection conn = connection.connetDB();
 		try 
 		{
-			String sql = "SELECT * FROM course";
+			String sql = "SELECT * FROM course WHERE course_assigned = 1";
 			PreparedStatement ps = null;
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

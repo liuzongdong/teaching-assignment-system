@@ -71,7 +71,8 @@
 						        <th data-field="course_category"  data-halign="center" data-align="center" data-sortable="true">Course Category</th>
 						        <th data-field="teacher_name"  data-halign="center" data-align="center" data-sortable="true">Course Instructor</th>
 						        <th data-field="course_student" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
-						     
+						     	<th data-field="course_time" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
+						     	<th data-field="course_ta" data-halign="center" data-align="center" data-sortable="true">Course Student</th>
 						    </tr>
 						    </thead>
 						</table>
@@ -79,11 +80,6 @@
 				</div>
 			</div>
 		</div><!--/.row-->
-
-			<ul id="context-menu" class="dropdown-menu">
-			    <li data-item="edit"><a>Edit</a></li>
-			    <li data-item="delete"><a>Delete</a></li>
-			</ul>
 
 	</div><!--/.main-->
 

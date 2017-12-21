@@ -468,6 +468,8 @@ public class Course
 				jsonobj.addProperty("course_student", rs.getString("course_student"));
 				jsonobj.addProperty("operation", rs.getString("operation"));
 				jsonobj.addProperty("operation_id", rs.getInt("operation_id"));
+				jsonobj.addProperty("course_ta", rs.getString("course_ta"));
+				jsonobj.addProperty("course_time", rs.getString("course_time"));
 				jsonarray.add(jsonobj);
 			}
 		} 

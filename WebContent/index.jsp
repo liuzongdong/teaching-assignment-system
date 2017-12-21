@@ -57,13 +57,8 @@
 			</ol>
 		</div><!--/.row-->
 
-		<div class="row">
-			<div class="col-lg-12">
-				<h3 class="page-header">Dashboard</h3>
-			</div>
-		</div><!--/.row-->
 
-		<div class="row">
+		<div style="padding-top:20px;" class="row">
 			<div class="col-xs-12 col-md-6 col-lg-3">
 				<div class="panel panel-blue panel-widget ">
 					<div class="row no-padding">
@@ -116,10 +111,56 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-xs-12 col-md-12 col-lg-12">
+				<canvas id="myChart"></canvas>
+			</div>
 		</div><!--/.row-->
 	</div>	<!--/.main-->
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/chart.js"></script>
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url: "DashboardData",
+				method: "GET",
+				success: function(data) {
+					console.log(data);
+					var name = [];
+					var workload = [];
+					for(var i in data) {
+						name.push(data[i].teacher_name);
+						workload.push(data[i].teacher_workload);
+					}
+	
+					var chartdata = {
+						labels: name,
+						datasets : [
+							{
+								label: 'Workload',
+								backgroundColor: 'rgba(54, 162, 235, 0.2)',
+					            borderColor: 'rgba(54, 162, 235, 1)',
+					            borderWidth: 1,
+								data: workload
+							}
+						]
+					};
+	
+					var ctx = $("#myChart");
+	
+					var barGraph = new Chart(ctx, {
+						type: 'bar',
+						data: chartdata
+					});
+				},
+				error: function(data) {
+					console.log(data);
+				}
+			});
+		});	
+	</script>
+
+
 </body>
 
 </html>
